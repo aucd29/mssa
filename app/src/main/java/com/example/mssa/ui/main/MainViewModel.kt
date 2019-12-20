@@ -1,6 +1,8 @@
 package com.example.mssa.ui.main
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
+import brigitte.viewmodel.CommandEventViewModel
 import javax.inject.Inject
 
 /**
@@ -8,6 +10,11 @@ import javax.inject.Inject
  */
 
 class MainViewModel @Inject constructor(
-) : ViewModel() {
+    app: Application
+) : CommandEventViewModel(app) {
 
+    companion object {
+        const val CMD_MOVE_GITHUB    = "move-github"
+        const val CMD_MOVE_CUSTOM_UI = "move-custom-ui"
+    }
 }

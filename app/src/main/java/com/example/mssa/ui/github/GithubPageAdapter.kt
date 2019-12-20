@@ -1,4 +1,4 @@
-package com.example.mssa.ui.main
+package com.example.mssa.ui.github
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -6,9 +6,8 @@ import androidx.fragment.app.FragmentManager
 import brigitte.string
 import brigitte.widget.pageradapter.FragmentPagerAdapter
 import com.example.mssa.R
-import com.example.mssa.ui.customui.CustomUiFragment
-import com.example.mssa.ui.search.SearchFragment
-import java.lang.RuntimeException
+import com.example.mssa.ui.github.likeuser.LikeUserFragment
+import com.example.mssa.ui.github.search.SearchFragment
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -18,21 +17,21 @@ import javax.inject.Named
 
 private val TAB_TITLES = arrayOf(
     R.string.main_tab_search,
-    R.string.main_tab_custom_ui
+    R.string.main_tab_like_user
 )
 
-class MainPageAdapter @Inject constructor(
+class GithubPageAdapter @Inject constructor(
     private val context: Context,
     @param:Named("activityFragmentManager") val fm: FragmentManager
 ) : FragmentPagerAdapter(fm) {
 
     @Inject lateinit var mSearchFragment: SearchFragment
-    @Inject lateinit var mCustomUiFragment: CustomUiFragment
+    @Inject lateinit var mLikeUserFragment: LikeUserFragment
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
             0    -> mSearchFragment
-            else -> mCustomUiFragment
+            else -> mLikeUserFragment
         }
     }
 

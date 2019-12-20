@@ -21,6 +21,7 @@ class NetworkModule {
         val LOG_CLASS = NetworkModule::class.java
 
         const val GITHUB_BASE_URL       = "https://raw.githubusercontent.com/"
+        const val GITHUB_SEARCH_URL     = "https://developer.github.com/"
     }
 
     @Provides

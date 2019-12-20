@@ -1,0 +1,57 @@
+package com.example.mssa.ui
+
+import androidx.fragment.app.FragmentManager
+import brigitte.FragmentAnim
+import brigitte.FragmentParams
+import brigitte.show
+import com.example.mssa.R
+import com.example.mssa.ui.customui.CustomUiFragment
+import com.example.mssa.ui.github.GithubFragment
+import com.example.mssa.ui.github.search.SearchFragment
+import org.slf4j.LoggerFactory
+import javax.inject.Inject
+import javax.inject.Named
+
+/**
+ * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2019-12-20 <p/>
+ */
+
+class Navigator @Inject constructor(
+    @param:Named("activityFragmentManager") val manager: FragmentManager
+) {
+    companion object {
+        private val mLog = LoggerFactory.getLogger(Navigator::class.java)
+
+        const val CONTAINER = R.id.fragment_container
+    }
+
+//    fun searchFragment() {
+//        if (mLog.isInfoEnabled) {
+//            mLog.info("SEARCH FRAGMENT")
+//        }
+//
+//        manager.show<SearchFragment>(
+//            FragmentParams(CONTAINER,
+//                anim = FragmentAnim.RIGHT)
+//        )
+//    }
+
+    fun githubFragment() {
+        if (mLog.isInfoEnabled) {
+            mLog.info("GithubFragment")
+        }
+
+        manager.show<GithubFragment>(FragmentParams(CONTAINER,
+            anim = FragmentAnim.RIGHT))
+    }
+
+    fun customUiFragment() {
+        if (mLog.isInfoEnabled) {
+            mLog.info("CUSTOM UI FRAGMENT")
+        }
+
+        manager.show<CustomUiFragment>(
+            FragmentParams(CONTAINER,
+                anim = FragmentAnim.RIGHT))
+    }
+}

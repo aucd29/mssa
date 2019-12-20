@@ -2,6 +2,9 @@
     <string name="app_name">mssa</string>
     
     <!-- main -->
+    <string name="main_move_github">Github</string>
+    <string name="main_move_custom_ui">UI</string>
+
     <string name="main_tab_search">Search</string>
-    <string name="main_tab_custom_ui">UI</string>
+    <string name="main_tab_like_user">Like</string>
 </resources>

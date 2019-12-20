@@ -1,7 +1,9 @@
 package com.example.mssa.di.module
 
 import com.example.mssa.ui.customui.CustomUiFragment
-import com.example.mssa.ui.search.SearchFragment
+import com.example.mssa.ui.github.GithubFragment
+import com.example.mssa.ui.github.likeuser.LikeUserFragment
+import com.example.mssa.ui.github.search.SearchFragment
 import dagger.Module
 
 /**
@@ -10,6 +12,8 @@ import dagger.Module
 
 @Module(includes = [
     SearchFragment.Module::class,
+    GithubFragment.Module::class,
+    LikeUserFragment.Module::class,
     CustomUiFragment.Module::class
 ])
 abstract class FragmentModule

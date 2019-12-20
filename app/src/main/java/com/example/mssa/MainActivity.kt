@@ -6,7 +6,7 @@ import brigitte.BaseDaggerActivity
 import brigitte.chromeInspector
 import brigitte.exceptionCatcher
 import com.example.mssa.databinding.MainActivityBinding
-import com.example.mssa.ui.main.MainPageAdapter
+import com.example.mssa.ui.Navigator
 import com.example.mssa.ui.main.MainViewModel
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
@@ -15,7 +15,7 @@ class MainActivity : BaseDaggerActivity<MainActivityBinding, MainViewModel>() {
     @LayoutRes
     override var layoutId: Int = R.layout.main_activity
 
-    @Inject lateinit var mAdapter: MainPageAdapter
+    @Inject lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         chromeInspector { if (mLog.isInfoEnabled) { mLog.info(it) }}
@@ -29,20 +29,25 @@ class MainActivity : BaseDaggerActivity<MainActivityBinding, MainViewModel>() {
         }
     }
 
-    override fun initViewBinding() = mBinding.run {
-        with (mainViewPager) {
-            adapter = mAdapter
-            mainTabs.setupWithViewPager(this)
-        }
+    override fun initViewBinding() {
     }
 
-    override fun initViewModelEvents() = mViewModel.run {
+    override fun initViewModelEvents() {
+    }
+
+    override fun onCommandEvent(cmd: String, data: Any) {
+        when (cmd) {
+            MainViewModel.CMD_MOVE_GITHUB ->
+                navigator.githubFragment()
+
+            MainViewModel.CMD_MOVE_CUSTOM_UI ->
+                navigator.customUiFragment()
+        }
     }
 
     companion object {
         private val mLog = LoggerFactory.getLogger(MainActivity::class.java)
     }
-
 
     ////////////////////////////////////////////////////////////////////////////////////
     //

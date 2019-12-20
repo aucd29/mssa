@@ -3,8 +3,10 @@ package com.example.mssa.di.module
 import androidx.lifecycle.ViewModel
 import brigitte.di.dagger.module.ViewModelKey
 import com.example.mssa.ui.customui.CustomUiViewModel
+import com.example.mssa.ui.github.GithubViewModel
+import com.example.mssa.ui.github.likeuser.LikeUserViewModel
 import com.example.mssa.ui.main.MainViewModel
-import com.example.mssa.ui.search.SearchViewModel
+import com.example.mssa.ui.github.search.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -28,8 +30,18 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(GithubViewModel::class)
+    abstract fun bindGithubViewModel(vm: GithubViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(vm: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LikeUserViewModel::class)
+    abstract fun bindLikeUserViewModel(vm: LikeUserViewModel): ViewModel
 
     @Binds
     @IntoMap
