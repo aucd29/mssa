@@ -2,6 +2,7 @@ package com.example.mssa.di.module
 
 import android.app.Application
 import androidx.room.Room
+import com.example.mssa.model.local.LocalDb
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,10 +17,10 @@ class DbModule {
         const val DB_NAME = "local.db"
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideDb(app: Application): LocalDb =
-//        Room.databaseBuilder(app, LocalDb::class.java, DB_NAME)
-//            .fallbackToDestructiveMigration()
-//            .build()
+    @Singleton
+    @Provides
+    fun provideDb(app: Application): LocalDb =
+        Room.databaseBuilder(app, LocalDb::class.java, DB_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
 }
