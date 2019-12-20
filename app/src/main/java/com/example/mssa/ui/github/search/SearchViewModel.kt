@@ -3,9 +3,12 @@ package com.example.mssa.ui.github.search
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import brigitte.RecyclerViewModel
+import brigitte.bindingadapter.ToLargeAlphaAnimParams
 import brigitte.toggle
+import brigitte.vibrate
 import brigitte.viewmodel.CommandEventViewModel
 import brigitte.widget.viewpager.OffsetDividerItemDecoration
 import com.example.mssa.R
@@ -58,15 +61,16 @@ class SearchViewModel @Inject constructor(
     val searchApi: GithubSearchService,
     val db: LocalDb
 ) : RecyclerViewModel<User>(app) {
-    val searchKeyword = ObservableField<String>("aucd29")
+    val searchKeyword = MutableLiveData<String>("android")
     val editorAction  = ObservableField<(String?) -> Boolean>()
     val itemDecoration = ObservableField(
         OffsetDividerItemDecoration(app,
             R.drawable.shape_divider_gray,  0, 0)
     )
 
-    val viewIsSearching = ObservableBoolean(false)
+    val dibsList        = MutableLiveData<ArrayList<User>>()
 
+    val viewIsSearching = ObservableBoolean(false)
     val dp = CompositeDisposable()
 
     init {
@@ -81,13 +85,14 @@ class SearchViewModel @Inject constructor(
 
     override fun command(cmd: String, data: Any) {
         when (cmd) {
-            ITN_SEARCH -> searchUser(searchKeyword.get())
-            ITN_CLEAR  -> searchKeyword.set("")
+            ITN_SEARCH -> searchUser(searchKeyword.value)
+            ITN_CLEAR  -> searchKeyword.value = ""
+            CMD_DIBS   -> checkDibs(data as User)
             else -> super.command(cmd, data)
         }
     }
 
-    fun searchUser(keyword: String?) {
+    private fun searchUser(keyword: String?) {
         if (mLog.isDebugEnabled) {
             mLog.debug("SEARCH KEYWORD $keyword")
         }
@@ -127,10 +132,53 @@ class SearchViewModel @Inject constructor(
             }))
     }
 
+    private fun checkDibs(item: User) {
+        if (mLog.isDebugEnabled) {
+            mLog.debug("CHECK DIBS ${item.login} - (${item.isEnabled()})")
+        }
+
+//        if (item.isEnabled()) {
+//            app.vibrate(longArrayOf(0, 1, 100, 1), 1)
+//        } else {
+            app.vibrate(1)
+//        }
+
+        item.anim.set(ToLargeAlphaAnimParams(5f, endListener = {
+            dibsList.value = toggleDibsItem(item)
+            item.toggleDibs()
+        }))
+    }
+
+    private fun toggleDibsItem(item: User) =
+        dibsList.value?.let {
+            if (mLog.isDebugEnabled) {
+                mLog.debug("DIBS LIST COUNT : ${it.size}")
+            }
+
+            val f = it.find { f -> f.login == item.login }
+            if (f != null) {
+                if (mLog.isDebugEnabled) {
+                    mLog.debug("REMOVE DIBS")
+                }
+
+                it.remove(f)
+            } else {
+                if (mLog.isDebugEnabled) {
+                    mLog.debug("ADD DIBS")
+                }
+
+                it.add(item)
+            }
+
+            it
+        }
+
     companion object {
         private val mLog = LoggerFactory.getLogger(SearchViewModel::class.java)
 
         const val ITN_SEARCH = "search"
         const val ITN_CLEAR  = "clear"
+
+        const val CMD_DIBS   = "dibs"
     }
 }

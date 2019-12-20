@@ -10,4 +10,5 @@
 
 <!--    search-->
     <string name="search_pls_input_search_keyword">검색어를 입력하세요</string>
+    <string name="search_score">Score : </string>
 </resources>

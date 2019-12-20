@@ -5,6 +5,7 @@
 
     <data>
         <variable name="model" type="com.example.mssa.ui.github.GithubViewModel" />
+        <variable name="tabModel" type="com.example.mssa.ui.github.TabViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:bindTabChanged="@{tabModel.tabChangedCallback}"
             />
 
         <androidx.viewpager.widget.ViewPager

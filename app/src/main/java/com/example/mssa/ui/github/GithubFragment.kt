@@ -3,6 +3,7 @@ package com.example.mssa.ui.github
 import androidx.fragment.app.Fragment
 import brigitte.BaseDaggerFragment
 import brigitte.di.dagger.scope.FragmentScope
+import brigitte.widget.observeTabFocus
 import com.example.mssa.R
 import com.example.mssa.databinding.GithubFragmentBinding
 import dagger.Binds
@@ -19,6 +20,14 @@ class GithubFragment @Inject constructor(
     override val layoutId = R.layout.github_fragment
 
     @Inject lateinit var mAdapter: GithubPageAdapter
+
+    private val mTabViewModel by activityInject<TabViewModel>()
+
+    override fun bindViewModel() {
+        super.bindViewModel()
+
+        mBinding.tabModel = mTabViewModel
+    }
 
     override fun initViewBinding() = mBinding.run {
         with (githubViewPager) {

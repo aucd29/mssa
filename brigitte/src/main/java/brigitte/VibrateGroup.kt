@@ -32,7 +32,7 @@ inline fun Context.vibrate(milliseconds: Long = 300) {
 inline fun Context.vibrate(pattern: LongArray, repeat: Int) {
     systemService<Vibrator>()?.let {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            it.vibrate(VibrationEffect.createWaveform(pattern, VibrationEffect.DEFAULT_AMPLITUDE))
+            it.vibrate(VibrationEffect.createWaveform(pattern, repeat))
         } else {
             it.vibrate(pattern, repeat)
         }

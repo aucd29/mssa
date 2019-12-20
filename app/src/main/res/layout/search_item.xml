@@ -13,15 +13,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp10"
+            android:clipChildren="false"
+            android:clipToPadding="false"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/search_item_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp45"
+            android:layout_height="@dimen/dp45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:bindImage="@{item.avatar_url}"
             />
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/search_item_avatar"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/dp10"
             android:text="@{item.login}"
             android:textSize="@dimen/sp15"
             />
@@ -42,10 +44,34 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/search_item_login"
             app:layout_constraintTop_toBottomOf="@+id/search_item_login"
+            android:textColor="@color/brown_grey"
+            android:textSize="@dimen/sp10"
+            android:textStyle="bold"
+            android:text="@string/search_score"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/search_item_score_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/search_item_score"
+            app:layout_constraintTop_toBottomOf="@+id/search_item_login"
+            android:textColor="@color/brown_grey"
+            android:textSize="@dimen/sp10"
             android:text="@{item.scoreToString()}"
             />
 
-
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/search_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@{item.dibs}"
+            app:bindToLargeAlpha="@{item.anim}"
+            android:onClick="@{() -> model.command(model.CMD_DIBS, item)}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

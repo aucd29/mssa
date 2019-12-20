@@ -1,6 +1,10 @@
 package com.example.mssa.model.remote.github
 
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import brigitte.IRecyclerDiff
+import brigitte.bindingadapter.ToLargeAlphaAnimParams
+import com.example.mssa.R
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2019-12-20 <p/>
@@ -33,6 +37,19 @@ data class User(
     val site_admin:String,
     val score: Float
 ): IRecyclerDiff {
+    var dibs = ObservableInt(R.drawable.ic_star_border_yellow_24dp)
+    var anim = ObservableField<ToLargeAlphaAnimParams>()
+
+    fun toggleDibs() {
+        dibs.set(if (dibs.get() == R.drawable.ic_star_border_yellow_24dp) {
+            R.drawable.ic_star_yellow_24dp
+        } else {
+            R.drawable.ic_star_border_yellow_24dp
+        })
+    }
+
+    fun isEnabled() = dibs.get() == R.drawable.ic_star_yellow_24dp
+
     override fun itemSame(item: IRecyclerDiff) =
         id == (item as User).id
 
