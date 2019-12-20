@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#919191</color>
+    <color name="colorPrimaryDark">#555555</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!-- COLOR TEMPLATES -->
+
+    <color name="black">#000000</color>
+    <color name="brownish_grey">#777777</color>
+    <color name="very_light_pink">#e8e8e8</color>
+    <color name="deep_sky_blue">#0078ff</color>
+    <color name="very_light_pink_two">#cccccc</color>
+    <color name="very_light_pink_three">#f1f1f1</color>
+    <color name="black_two">#222222</color>
+    <color name="white">#ffffff</color>
+    <color name="brown_grey">#aaaaaa</color>
+    <color name="very_light_blue">#eceef1</color>
+
+</resources>

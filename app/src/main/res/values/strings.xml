@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">mssa</string>
+    
+    <!-- main -->
+    <string name="main_tab_search">Search</string>
+    <string name="main_tab_custom_ui">UI</string>
+</resources>
