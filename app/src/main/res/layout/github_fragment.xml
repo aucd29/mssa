@@ -5,7 +5,7 @@
 
     <data>
         <variable name="model" type="com.example.mssa.ui.github.GithubViewModel" />
-        <variable name="tabModel" type="com.example.mssa.ui.github.TabViewModel" />
+        <variable name="tabModel" type="com.example.mssa.ui.github.GithubTabViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

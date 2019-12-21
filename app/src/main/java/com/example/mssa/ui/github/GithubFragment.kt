@@ -3,11 +3,9 @@ package com.example.mssa.ui.github
 import androidx.fragment.app.Fragment
 import brigitte.BaseDaggerFragment
 import brigitte.di.dagger.scope.FragmentScope
-import brigitte.widget.observeTabFocus
 import com.example.mssa.R
 import com.example.mssa.databinding.GithubFragmentBinding
 import dagger.Binds
-import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
 
@@ -21,7 +19,7 @@ class GithubFragment @Inject constructor(
 
     @Inject lateinit var mAdapter: GithubPageAdapter
 
-    private val mTabViewModel by activityInject<TabViewModel>()
+    private val mTabViewModel by activityInject<GithubTabViewModel>()
 
     override fun bindViewModel() {
         super.bindViewModel()

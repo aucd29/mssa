@@ -26,12 +26,12 @@ interface DibsDao {
 
 @Entity(tableName = "dibs")
 data class Dibs (
-    @PrimaryKey(autoGenerate = true)
-    val _id: Int = 0,
     val login: String,
-    val avatar_url: Long,
+    val avatar_url: String,
     val score: Float,
-    val starred_url: String
+    val starred_url: String,
+    @PrimaryKey(autoGenerate = true)
+    val _id: Int = 0
 ): IRecyclerDiff {
     override fun itemSame(item: IRecyclerDiff) =
         _id == (item as Dibs)._id

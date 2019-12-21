@@ -8,7 +8,7 @@ import brigitte.widget.ITabFocus
 import brigitte.widget.observeTabFocus
 import com.example.mssa.R
 import com.example.mssa.databinding.SearchFragmentBinding
-import com.example.mssa.ui.github.TabViewModel
+import com.example.mssa.ui.github.GithubTabViewModel
 import dagger.Binds
 import dagger.android.ContributesAndroidInjector
 import org.slf4j.LoggerFactory
@@ -22,7 +22,7 @@ class SearchFragment @Inject constructor(
 ): BaseDaggerFragment<SearchFragmentBinding, SearchViewModel>(), ITabFocus {
     override val layoutId = R.layout.search_fragment
 
-    private val mTabViewModel by activityInject<TabViewModel>()
+    private val mTabViewModel by activityInject<GithubTabViewModel>()
 
     override fun initViewBinding() = mBinding.run {
 

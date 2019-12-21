@@ -13,16 +13,143 @@
             android:layout_height="match_parent"
             android:background="@android:color/white">
 
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CUSTOM UI"
+        <View
+            android:id="@+id/custom_ui_top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp80"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/black"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/custom_ui_date"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/custom_ui_top_bg"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp20"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:lineSpacingExtra="30sp"
+            android:text="@{model.dateString}"
+            android:gravity="center_vertical"
+            tools:text="02월 12일 (수)"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/custom_ui_expand"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@+id/custom_ui_date"
+            app:layout_constraintTop_toTopOf="@+id/custom_ui_date"
+            app:layout_constraintBottom_toBottomOf="@+id/custom_ui_date"
+            android:src="@drawable/ic_expand_more_black_24dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/custom_ui_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@+id/custom_ui_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/custom_ui_date"
+            android:layout_marginEnd="@dimen/dp12"
+            android:src="@drawable/ic_settings_black_24dp"
+            />
+
+<!--        -->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/custom_ui_current_meeting_room"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_ui_top_bg"
+            android:layout_marginTop="@dimen/dp15"
+            android:layout_marginStart="@dimen/dp15"
+            android:text="@string/custom_ui_meeting_room"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/custom_ui_current_meeting_room_count"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/custom_ui_current_meeting_room"
+            app:layout_constraintTop_toTopOf="@+id/custom_ui_current_meeting_room"
+            android:textColor="@color/deep_sky_blue"
+            android:text="@{model.availableCount}"
+            tools:text="7"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/custom_ui_current_meeting_room_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_ui_current_meeting_room"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            app:bindAdapter="@{model.adapter}"
+            app:bindItems="@{model.items}"
+            />
+
+<!--        -->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/custom_ui_available_reservation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_ui_current_meeting_room_recycler"
+            android:text="@string/custom_ui_reservation"
+            />
+
+        <RadioGroup
+            android:id="@+id/custom_ui_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/custom_ui_current_meeting_room_recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+            <RadioButton
+                android:id="@+id/custom_ui_meeting_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_ui_meeting_room"
+                />
+            <RadioButton
+                android:id="@+id/custom_ui_external_meeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_ui_external_meeting"
+                />
+            <RadioButton
+                android:id="@+id/custom_ui_my_reservation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_ui_my_reservation"
+                />
+        </RadioGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/custom_ui_reservation_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_ui_available_reservation_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:bindAdapter="@{model.reservationAdapter}"
+            app:bindItems="@{model.reservationItems}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

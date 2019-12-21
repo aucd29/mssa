@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import brigitte.di.dagger.module.ViewModelKey
 import com.example.mssa.ui.customui.CustomUiViewModel
 import com.example.mssa.ui.github.GithubViewModel
-import com.example.mssa.ui.github.TabViewModel
+import com.example.mssa.ui.github.GithubTabViewModel
 import com.example.mssa.ui.github.likeuser.LikeUserViewModel
 import com.example.mssa.ui.main.MainViewModel
 import com.example.mssa.ui.github.search.SearchViewModel
@@ -36,8 +36,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(TabViewModel::class)
-    abstract fun bindTabViewModel(vm: TabViewModel): ViewModel
+    @ViewModelKey(GithubTabViewModel::class)
+    abstract fun bindTabViewModel(vm: GithubTabViewModel): ViewModel
 
     @Binds
     @IntoMap

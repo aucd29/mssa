@@ -13,6 +13,7 @@ import brigitte.viewmodel.CommandEventViewModel
 import brigitte.widget.viewpager.OffsetDividerItemDecoration
 import com.example.mssa.R
 import com.example.mssa.model.local.LocalDb
+import com.example.mssa.model.local.table.Dibs
 import com.example.mssa.model.remote.GithubSearchService
 import com.example.mssa.model.remote.github.User
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -146,6 +147,13 @@ class SearchViewModel @Inject constructor(
         item.anim.set(ToLargeAlphaAnimParams(5f, endListener = {
             dibsList.value = toggleDibsItem(item)
             item.toggleDibs()
+
+            // INSERT DB
+            db.dibsDao().insert(Dibs(item.login,
+                item.avatar_url,
+                item.score,
+                item.starred_url))
+
         }))
     }
 

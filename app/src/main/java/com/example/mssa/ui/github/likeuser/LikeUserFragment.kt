@@ -7,9 +7,8 @@ import brigitte.widget.ITabFocus
 import brigitte.widget.observeTabFocus
 import com.example.mssa.R
 import com.example.mssa.databinding.LikeUserFragmentBinding
-import com.example.mssa.ui.github.TabViewModel
+import com.example.mssa.ui.github.GithubTabViewModel
 import dagger.Binds
-import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
@@ -22,7 +21,7 @@ class LikeUserFragment @Inject constructor(
 ): BaseDaggerFragment<LikeUserFragmentBinding, LikeUserViewModel>(), ITabFocus {
     override val layoutId = R.layout.like_user_fragment
 
-    private val mTabViewModel by activityInject<TabViewModel>()
+    private val mTabViewModel by activityInject<GithubTabViewModel>()
 
     override fun initViewBinding() {
     }

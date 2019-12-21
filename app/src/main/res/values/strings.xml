@@ -11,4 +11,12 @@
 <!--    search-->
     <string name="search_pls_input_search_keyword">검색어를 입력하세요</string>
     <string name="search_score">Score : </string>
+
+
+<!--    custom ui-->
+
+    <string name="custom_ui_meeting_room">현재 사용 가능 회의실</string>
+    <string name="custom_ui_reservation">예약가능</string>
+    <string name="custom_ui_external_meeting">외부미팅</string>
+    <string name="custom_ui_my_reservation">내 예약</string>
 </resources>

@@ -13,7 +13,7 @@ import javax.inject.Inject
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2019-12-20 <p/>
  */
 
-class TabViewModel @Inject constructor(
+class GithubTabViewModel @Inject constructor(
 ) : ViewModel() {
     val tabChangedCallback = ObservableField<TabSelectedCallback>()
     var tabLive = MutableLiveData<TabLayout.Tab?>()
