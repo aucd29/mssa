@@ -1,10 +1,13 @@
 package com.example.mssa.ui.customui
 
 import android.app.Application
+import android.graphics.Rect
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import brigitte.RecyclerAdapter
 import brigitte.RecyclerViewModel
+import brigitte.dpToPx
+import brigitte.widget.viewpager.SpaceItemDecoration
 import com.example.mssa.R
 import com.example.mssa.common.Config
 import com.example.mssa.model.local.meetingroom.AvailableMeetingRoom
@@ -21,7 +24,9 @@ class CustomUiViewModel @Inject constructor(
 ) : RecyclerViewModel<AvailableMeetingRoom>(app) {
 
     val availableCount = MutableLiveData<Int>()
-    val dateString = MutableLiveData<String>()
+    val dateString     = MutableLiveData<String>()
+    val itemDecoration = ObservableField(SpaceItemDecoration(
+        Rect(0, 0, 5.dpToPx(app), 0)))
 
     val reservationItems   = ObservableField<List<ReservationInfo>>()
     val reservationAdapter = ObservableField<RecyclerAdapter<ReservationInfo>>()
@@ -32,7 +37,7 @@ class CustomUiViewModel @Inject constructor(
     }
 
     fun availableMeetingRoom() {
-        initAdapter(R.layout.current_meeting_room_item)
+        initAdapter(R.layout.custom_ui_meeting_room_item)
 
         items.set(arrayListOf(
             AvailableMeetingRoom(1, "대회의실"),
