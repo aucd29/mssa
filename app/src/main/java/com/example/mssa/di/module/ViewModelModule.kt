@@ -2,7 +2,7 @@ package com.example.mssa.di.module
 
 import androidx.lifecycle.ViewModel
 import brigitte.di.dagger.module.ViewModelKey
-import com.example.mssa.ui.customui.CustomUiViewModel
+import com.example.mssa.ui.meetingroom.MeetingRoomViewModel
 import com.example.mssa.ui.github.GithubViewModel
 import com.example.mssa.ui.github.GithubTabViewModel
 import com.example.mssa.ui.github.likeuser.LikeUserViewModel
@@ -51,7 +51,7 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(CustomUiViewModel::class)
-    abstract fun bindCustomUiViewModel(vm: CustomUiViewModel): ViewModel
+    @ViewModelKey(MeetingRoomViewModel::class)
+    abstract fun bindCustomUiViewModel(vm: MeetingRoomViewModel): ViewModel
 
 }

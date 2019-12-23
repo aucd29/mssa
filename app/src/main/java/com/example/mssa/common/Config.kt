@@ -18,11 +18,6 @@ import javax.inject.Singleton
 class Config @Inject constructor(val context: Context) {
     val SCREEN = Point()
 
-    val meetingRoomList: List<MeetingRoom> = Single.just(context.assets.open("meeting_room_data.json")
-        .readBytes())
-        .map { it.jsonParse<List<MeetingRoom>>() }
-        .blockingGet()
-
     init {
         //
         // W / H

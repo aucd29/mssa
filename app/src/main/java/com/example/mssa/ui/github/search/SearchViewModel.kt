@@ -6,6 +6,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import brigitte.RecyclerViewModel
 import brigitte.bindingadapter.ToLargeAlphaAnimParams
+import brigitte.isNetworkConntected
 import brigitte.toggle
 import brigitte.vibrate
 import brigitte.widget.viewpager.OffsetDividerItemDecoration
@@ -104,6 +105,11 @@ class SearchViewModel @Inject constructor(
     private fun searchUser(keyword: String?) {
         if (mLog.isDebugEnabled) {
             mLog.debug("SEARCH KEYWORD $keyword")
+        }
+
+        if (!app.isNetworkConntected()) {
+            snackbar(R.string.network_invalid_connectivity)
+            return
         }
 
         viewIsSearching.toggle()

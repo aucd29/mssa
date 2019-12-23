@@ -14,7 +14,7 @@ class MainViewModel @Inject constructor(
 ) : CommandEventViewModel(app) {
 
     companion object {
-        const val CMD_MOVE_GITHUB    = "move-github"
-        const val CMD_MOVE_CUSTOM_UI = "move-custom-ui"
+        const val CMD_MOVE_GITHUB       = "move-github"
+        const val CMD_MOVE_MEETING_ROOM = "move-meeting-room"
     }
 }

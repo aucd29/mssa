@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias=".75"
             android:padding="@dimen/dp20"
-            android:onClick="@{() -> model.command(model.CMD_MOVE_CUSTOM_UI)}"
+            android:onClick="@{() -> model.command(model.CMD_MOVE_MEETING_ROOM)}"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout

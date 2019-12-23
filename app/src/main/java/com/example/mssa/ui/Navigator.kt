@@ -5,7 +5,7 @@ import brigitte.FragmentAnim
 import brigitte.FragmentParams
 import brigitte.show
 import com.example.mssa.R
-import com.example.mssa.ui.customui.CustomUiFragment
+import com.example.mssa.ui.meetingroom.MeetingRoomFragment
 import com.example.mssa.ui.github.GithubFragment
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
@@ -38,7 +38,7 @@ class Navigator @Inject constructor(
             mLog.info("MEETING ROOM FRAGMENT")
         }
 
-        manager.show<CustomUiFragment>(
+        manager.show<MeetingRoomFragment>(
             FragmentParams(CONTAINER,
                 anim = FragmentAnim.RIGHT))
     }

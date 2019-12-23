@@ -3,7 +3,6 @@ package com.example.mssa
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import brigitte.BaseDaggerActivity
-import brigitte.chromeInspector
 import brigitte.exceptionCatcher
 import com.example.mssa.databinding.MainActivityBinding
 import com.example.mssa.ui.Navigator
@@ -39,7 +38,7 @@ class MainActivity : BaseDaggerActivity<MainActivityBinding, MainViewModel>() {
             MainViewModel.CMD_MOVE_GITHUB ->
                 navigator.githubFragment()
 
-            MainViewModel.CMD_MOVE_CUSTOM_UI ->
+            MainViewModel.CMD_MOVE_MEETING_ROOM ->
                 navigator.meetingRoomFragment()
         }
     }

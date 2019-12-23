@@ -15,11 +15,13 @@
 <!--    like user-->
     <string name="like_user_more">More</string>
 
+<!--    meeting room-->
+    <string name="meeting_room_date_format">MM월dd일(E)</string>
 
-<!--    custom ui-->
+    <string name="meeting_room_available_room">현재 사용 가능 회의실</string>
+    <string name="meeting_room_reservation">예약가능</string>
+    <string name="meeting_room_external_meeting">외부미팅</string>
+    <string name="meeting_room_my_reservation">내 예약</string>
 
-    <string name="custom_ui_meeting_room">현재 사용 가능 회의실</string>
-    <string name="custom_ui_reservation">예약가능</string>
-    <string name="custom_ui_external_meeting">외부미팅</string>
-    <string name="custom_ui_my_reservation">내 예약</string>
+
 </resources>

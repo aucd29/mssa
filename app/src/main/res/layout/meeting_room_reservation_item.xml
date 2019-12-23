@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="item" type="com.example.mssa.model.local.meetingroom.ReservationInfo" />
+        <variable name="item" type="com.example.mssa.model.local.meetingroom.ConvertMeetingRoom" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp10"
             >
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/reservation_room_name"
                 style="@style/TextStyle"
@@ -43,7 +44,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/reservation_room_name"
                 android:layout_marginTop="@dimen/dp1"
                 android:text="@{item.location}"
-                tools:text="MUSINSA 1 / B1"
+                tools:text="ROOM 1 / B1"
                 />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -57,7 +58,7 @@
                 android:src="@drawable/ic_question"
                 />
 
-            <View
+            <com.example.mssa.common.widget.ReservationTimeView
                 android:id="@+id/reservation_time_bg"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp4"

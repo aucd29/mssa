@@ -18,12 +18,12 @@
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/custom_ui_current_meeting_room_container"
+            android:id="@+id/meeting_room_current_meeting_room_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/custom_ui_meeting_room_name"
+                android:id="@+id/meeting_room_meeting_room_name"
                 style="@style/TextStyle6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
