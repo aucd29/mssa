@@ -18,7 +18,6 @@ class MainActivity : BaseDaggerActivity<MainActivityBinding, MainViewModel>() {
     @Inject lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        chromeInspector { if (mLog.isInfoEnabled) { mLog.info(it) }}
         exceptionCatcher { mLog.error("ERROR: $it") }
         setTheme(R.style.AppTheme)
 
@@ -41,7 +40,7 @@ class MainActivity : BaseDaggerActivity<MainActivityBinding, MainViewModel>() {
                 navigator.githubFragment()
 
             MainViewModel.CMD_MOVE_CUSTOM_UI ->
-                navigator.customUiFragment()
+                navigator.meetingRoomFragment()
         }
     }
 

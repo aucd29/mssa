@@ -7,7 +7,6 @@ import brigitte.show
 import com.example.mssa.R
 import com.example.mssa.ui.customui.CustomUiFragment
 import com.example.mssa.ui.github.GithubFragment
-import com.example.mssa.ui.github.search.SearchFragment
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
 import javax.inject.Named
@@ -25,17 +24,6 @@ class Navigator @Inject constructor(
         const val CONTAINER = R.id.fragment_container
     }
 
-//    fun searchFragment() {
-//        if (mLog.isInfoEnabled) {
-//            mLog.info("SEARCH FRAGMENT")
-//        }
-//
-//        manager.show<SearchFragment>(
-//            FragmentParams(CONTAINER,
-//                anim = FragmentAnim.RIGHT)
-//        )
-//    }
-
     fun githubFragment() {
         if (mLog.isInfoEnabled) {
             mLog.info("GithubFragment")
@@ -45,9 +33,9 @@ class Navigator @Inject constructor(
             anim = FragmentAnim.RIGHT))
     }
 
-    fun customUiFragment() {
+    fun meetingRoomFragment() {
         if (mLog.isInfoEnabled) {
-            mLog.info("CUSTOM UI FRAGMENT")
+            mLog.info("MEETING ROOM FRAGMENT")
         }
 
         manager.show<CustomUiFragment>(

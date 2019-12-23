@@ -1,10 +1,8 @@
 package com.example.mssa.ui.github
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
-import com.google.android.material.tabs.TabLayout
 import javax.inject.Inject
 
 /**
@@ -14,5 +12,5 @@ import javax.inject.Inject
 class GithubViewModel @Inject constructor(
     app: Application
 ) : ViewModel() {
-
+    val offscreenLimit = ObservableInt(2)
 }

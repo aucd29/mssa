@@ -6,8 +6,10 @@ import brigitte.di.dagger.scope.FragmentScope
 import com.example.mssa.R
 import com.example.mssa.databinding.GithubFragmentBinding
 import dagger.Binds
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2019-12-20 <p/>
@@ -57,6 +59,11 @@ class GithubFragment @Inject constructor(
 
         @dagger.Module
         companion object {
+            @JvmStatic
+            @Provides
+            @Named("githubFragmentManager")
+            fun provideGithubFragmentManager(fragment: Fragment) =
+                fragment.childFragmentManager
         }
     }
 }

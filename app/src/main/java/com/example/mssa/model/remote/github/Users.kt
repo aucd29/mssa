@@ -48,6 +48,10 @@ data class User(
         })
     }
 
+    fun enableDibs() {
+        dibs.set(R.drawable.ic_star_yellow_24dp)
+    }
+
     fun isEnabled() = dibs.get() == R.drawable.ic_star_yellow_24dp
 
     override fun itemSame(item: IRecyclerDiff) =

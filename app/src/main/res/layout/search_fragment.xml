@@ -80,6 +80,7 @@
             app:bindAdapter="@{model.adapter}"
             app:bindItems="@{model.items}"
             app:bindItemDecoration="@{model.itemDecoration}"
+            tools:listitem="@layout/search_item"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

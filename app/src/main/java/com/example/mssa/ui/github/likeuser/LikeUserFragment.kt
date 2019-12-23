@@ -30,16 +30,6 @@ class LikeUserFragment @Inject constructor(
         observeTabFocus(mTabViewModel.tabLive, this, R.string.main_tab_like_user)
     }
 
-
-//    fun likeUserFragment() {
-//        if (mLog.isInfoEnabled) {
-//            mLog.info("LikeUserFragment")
-//        }
-//
-//        manager.show<LikeUserFragment>(FragmentParams(CONTAINER))
-//    }
-
-
     ////////////////////////////////////////////////////////////////////////////////////
     //
     // ITabFocus
@@ -50,6 +40,8 @@ class LikeUserFragment @Inject constructor(
         if (mLog.isDebugEnabled) {
             mLog.debug("FOCUS IN (LIKE USER)")
         }
+
+        mViewModel.init()
     }
 
     override fun onTabFocusOut() {

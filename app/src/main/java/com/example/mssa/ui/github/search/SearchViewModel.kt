@@ -3,23 +3,21 @@ package com.example.mssa.ui.github.search
 import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import brigitte.RecyclerViewModel
 import brigitte.bindingadapter.ToLargeAlphaAnimParams
 import brigitte.toggle
 import brigitte.vibrate
-import brigitte.viewmodel.CommandEventViewModel
 import brigitte.widget.viewpager.OffsetDividerItemDecoration
 import com.example.mssa.R
 import com.example.mssa.model.local.LocalDb
-import com.example.mssa.model.local.table.Dibs
+import com.example.mssa.model.local.room.Dibs
 import com.example.mssa.model.remote.GithubSearchService
 import com.example.mssa.model.remote.github.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import org.slf4j.LoggerFactory
-import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -61,18 +59,18 @@ class SearchViewModel @Inject constructor(
     app: Application,
     val searchApi: GithubSearchService,
     val db: LocalDb
-) : RecyclerViewModel<User>(app) {
-    val searchKeyword = MutableLiveData<String>("android")
-    val editorAction  = ObservableField<(String?) -> Boolean>()
-    val itemDecoration = ObservableField(
-        OffsetDividerItemDecoration(app,
-            R.drawable.shape_divider_gray,  0, 0)
-    )
+) : RecyclerViewModel<User>(app), LifecycleEventObserver {
+    /** 좋아요 연동을 위한 변수 */
+    private var mDibsMap = hashMapOf<Int, String?>()
+    private val mDp      = CompositeDisposable()
 
-    val dibsList        = MutableLiveData<ArrayList<User>>()
+    val searchKeyword  = MutableLiveData<String>("android")
+    val editorAction   = ObservableField<(String?) -> Boolean>()
+    val itemDecoration = ObservableField(OffsetDividerItemDecoration(app,
+            R.drawable.shape_divider_gray,  0, 0))
 
     val viewIsSearching = ObservableBoolean(false)
-    val dp = CompositeDisposable()
+
 
     init {
         editorAction.set {
@@ -82,6 +80,16 @@ class SearchViewModel @Inject constructor(
         }
 
         initAdapter(R.layout.search_item)
+
+        mDp.add(db.dibsDao().selectAll()
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                it.forEach { dibs -> mDibsMap[dibs.sid] = null }
+
+                if (mLog.isDebugEnabled) {
+                    mLog.debug("INIT DIBS MAP COUNT = ${it.size}")
+                }
+            }, ::errorLog))
     }
 
     override fun command(cmd: String, data: Any) {
@@ -106,7 +114,7 @@ class SearchViewModel @Inject constructor(
             return
         }
 
-        dp.add(searchApi.users(keyword)
+        mDp.add(searchApi.users(keyword)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
                 viewIsSearching.toggle()
@@ -125,6 +133,13 @@ class SearchViewModel @Inject constructor(
                     mLog.debug("SEARCHED LIST = ${it.items.size}")
                 }
 
+                // 로딩 시 이미 체크되어 있는 항목 설정 하기
+                it.items.forEach {
+                    if (mDibsMap.containsKey(it.id)) {
+                        it.enableDibs()
+                    }
+                }
+
                 items.set(it.items)
             }, {
                 viewIsSearching.toggle()
@@ -138,48 +153,62 @@ class SearchViewModel @Inject constructor(
             mLog.debug("CHECK DIBS ${item.login} - (${item.isEnabled()})")
         }
 
-//        if (item.isEnabled()) {
-//            app.vibrate(longArrayOf(0, 1, 100, 1), 1)
-//        } else {
-            app.vibrate(1)
-//        }
+        app.vibrate(1)
 
         item.anim.set(ToLargeAlphaAnimParams(5f, endListener = {
-            dibsList.value = toggleDibsItem(item)
+            toggleDibsItem(item)
             item.toggleDibs()
-
-            // INSERT DB
-            db.dibsDao().insert(Dibs(item.login,
-                item.avatar_url,
-                item.score,
-                item.starred_url))
-
         }))
     }
 
-    private fun toggleDibsItem(item: User) =
-        dibsList.value?.let {
-            if (mLog.isDebugEnabled) {
-                mLog.debug("DIBS LIST COUNT : ${it.size}")
-            }
-
-            val f = it.find { f -> f.login == item.login }
-            if (f != null) {
-                if (mLog.isDebugEnabled) {
-                    mLog.debug("REMOVE DIBS")
-                }
-
-                it.remove(f)
-            } else {
-                if (mLog.isDebugEnabled) {
-                    mLog.debug("ADD DIBS")
-                }
-
-                it.add(item)
-            }
-
-            it
+    private fun toggleDibsItem(item: User) {
+        if (mDibsMap.containsKey(item.id)) {
+            mDibsMap.remove(item.id)
+            mDp.add(db.dibsDao().delete(item.id)
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    if (mLog.isDebugEnabled) {
+                        mLog.debug("DIBS DELETE OK : ${item.login}(${item.id})")
+                    }
+                },::errorLog))
+        } else {
+            mDibsMap[item.id] = null
+            mDp.add(db.dibsDao().insert(Dibs(item.id,
+                item.login,
+                item.avatar_url,
+                item.score,
+                item.starred_url))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (mLog.isDebugEnabled) {
+                        mLog.debug("DIBS INSERT OK : ${item.login}(${item.id})")
+                    }
+                }, ::errorLog))
         }
+
+        if (mLog.isDebugEnabled) {
+            mLog.debug("DIBS MAP COUNT : ${mDibsMap.size}")
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // LifecycleEventObserver
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        when (event) {
+            Lifecycle.Event.ON_DESTROY -> mDp.dispose()
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    //
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
 
     companion object {
         private val mLog = LoggerFactory.getLogger(SearchViewModel::class.java)

@@ -45,8 +45,10 @@ class SearchFragment @Inject constructor(
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        mViewModel.searchKeyword.value?.let {
-            outState.putString(STS_KEYWORD, it)
+        mViewModel.let {
+            it.searchKeyword.value?.let {
+                outState.putString(STS_KEYWORD, it)
+            }
         }
     }
 

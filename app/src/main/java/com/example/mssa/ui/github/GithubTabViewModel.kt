@@ -1,8 +1,6 @@
 package com.example.mssa.ui.github
 
-import android.app.Application
 import androidx.databinding.ObservableField
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import brigitte.TabSelectedCallback
