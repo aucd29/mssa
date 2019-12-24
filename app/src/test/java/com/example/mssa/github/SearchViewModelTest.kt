@@ -45,6 +45,8 @@ class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
 
     @Test
     fun initTest0() {
+        mockReactiveX()
+
         viewmodel.apply {
             db.dibsDao().mockReturn(dibsDao)
             db.dibsDao().selectAll().mockReturn(Single.just(arrayListOf<Dibs>()))
@@ -57,6 +59,8 @@ class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
 
     @Test
     fun initTest2() {
+        mockReactiveX()
+
         viewmodel.apply {
             db.dibsDao().mockReturn(dibsDao)
             db.dibsDao().selectAll().mockReturn(Single.just(arrayListOf(
