@@ -38,7 +38,7 @@ data class User(
     val score: Float
 ): IRecyclerDiff {
     var dibs = ObservableInt(R.drawable.ic_star_border_yellow_24dp)
-    var anim = ObservableField<ToLargeAlphaAnimParams>()
+    var anim = ObservableField<ToLargeAlphaAnimParams?>()
 
     fun toggleDibs() {
         dibs.set(if (dibs.get() == R.drawable.ic_star_border_yellow_24dp) {

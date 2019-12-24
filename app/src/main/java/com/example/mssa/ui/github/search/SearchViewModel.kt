@@ -167,6 +167,7 @@ class SearchViewModel @Inject constructor(
         item.anim.set(ToLargeAlphaAnimParams(5f, endListener = {
             toggleDibsItem(item)
             item.toggleDibs()
+            item.anim.set(null)
         }))
     }
 
