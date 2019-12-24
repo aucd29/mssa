@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">mssa</string>
+    
+    <!-- main -->
+    <string name="main_move_github">Github</string>
+    <string name="main_move_custom_ui">UI</string>
+
+    <string name="main_tab_search">Search</string>
+    <string name="main_tab_like_user">Like</string>
+
+<!--    search-->
+    <string name="search_pls_input_search_keyword">검색어를 입력하세요</string>
+    <string name="search_score">Score : </string>
+
+<!--    like user-->
+    <string name="like_user_more">More</string>
+
+<!--    meeting room-->
+    <string name="meeting_room_date_format">MM월dd일(E)</string>
+
+    <string name="meeting_room_available_room">현재 사용 가능 회의실</string>
+    <string name="meeting_room_reservation">예약가능</string>
+    <string name="meeting_room_external_meeting">외부미팅</string>
+    <string name="meeting_room_my_reservation">내 예약</string>
+
+
+</resources>

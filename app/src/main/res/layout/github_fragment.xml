@@ -1,0 +1,41 @@
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="model" type="com.example.mssa.ui.github.GithubViewModel" />
+        <variable name="tabModel" type="com.example.mssa.ui.github.GithubTabViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/github_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            >
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/github_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:tabIndicatorHeight="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:bindTabChanged="@{tabModel.tabChangedCallback}"
+            />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/github_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/github_tabs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:bindOffscreenPageLimit="@{model.offscreenLimit}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
