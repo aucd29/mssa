@@ -46,8 +46,8 @@ class ReservationTimeView @JvmOverloads constructor(
         mTime9      = cal.timeInMillis
         mOffsetTime = ((mCurrentTime - mTime9) / 1_800_000).toInt()
 
-        if (mLog.isDebugEnabled) {
-            mLog.debug("OFFSET TIME : $mOffsetTime")
+        if (mLog.isTraceEnabled) {
+            mLog.trace("OFFSET TIME : $mOffsetTime")
         }
     }
 
@@ -64,8 +64,8 @@ class ReservationTimeView @JvmOverloads constructor(
             val sIdx = s / mDivTime
             val eIdx = e / mDivTime
 
-            if (mLog.isDebugEnabled) {
-                mLog.debug("S-IDX: $sIdx, E-IDX: $eIdx")
+            if (mLog.isTraceEnabled) {
+                mLog.trace("S-IDX: $sIdx, E-IDX: $eIdx")
             }
 
             var index = sIdx.toInt() + 1
