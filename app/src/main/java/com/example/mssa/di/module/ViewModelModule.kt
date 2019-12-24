@@ -29,6 +29,12 @@ abstract class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(vm: MainViewModel): ViewModel
 
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // GITHUB
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
+
     @Binds
     @IntoMap
     @ViewModelKey(GithubViewModel::class)
@@ -48,6 +54,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LikeUserViewModel::class)
     abstract fun bindLikeUserViewModel(vm: LikeUserViewModel): ViewModel
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // MEETING ROOM
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
 
     @Binds
     @IntoMap

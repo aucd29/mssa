@@ -45,10 +45,6 @@ class MeetingRoomViewModel @Inject constructor(
     val reservationItems   = ObservableField<List<ConvertMeetingRoom>>()
     val reservationAdapter = ObservableField<RecyclerAdapter<ConvertMeetingRoom>>()
 
-//    init {
-//        loadJson()
-//    }
-
     fun loadJson() {
         val format = app.string(R.string.meeting_room_date_format)
         dateString.set(System.currentTimeMillis().toDateString(SimpleDateFormat(

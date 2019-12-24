@@ -24,12 +24,6 @@ interface DibsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(data: Dibs): Completable
 
-//    @Update
-//    fun update(data: Dibs): Completable
-//
-//    @Delete
-//    fun delete(data: Dibs): Completable
-
     @Query("DELETE FROM dibs WHERE sid=:sid")
     fun delete(sid: Int): Completable
 }
