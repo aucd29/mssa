@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import brigitte.BaseDaggerFragment
 import brigitte.di.dagger.scope.FragmentScope
+import brigitte.observe
 import brigitte.widget.ITabFocus
 import brigitte.widget.observeTabFocus
 import com.example.mssa.R
@@ -37,6 +38,11 @@ class LikeUserFragment @Inject constructor(
 
         savedInstanceState?.let {
             it.getInt(K_PAGE)?.let { page ->
+
+                if (mLog.isDebugEnabled) {
+                    mLog.debug("LOAD STATE PAGE : $page")
+                }
+
                 mViewModel.pageValue = page
             }
         }
@@ -44,6 +50,10 @@ class LikeUserFragment @Inject constructor(
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
+        if (mLog.isDebugEnabled) {
+            mLog.debug("SAVE STATE PAGE : ${mViewModel.pageValue}")
+        }
 
         outState.putInt(K_PAGE, mViewModel.pageValue)
     }
