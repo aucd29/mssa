@@ -1,5 +1,6 @@
 package com.example.mssa.ui.github.likeuser
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import brigitte.BaseDaggerFragment
 import brigitte.di.dagger.scope.FragmentScope
@@ -28,6 +29,23 @@ class LikeUserFragment @Inject constructor(
 
     override fun initViewModelEvents() {
         observeTabFocus(mTabViewModel.tabLive, this, R.string.main_tab_like_user)
+        mViewModel.init()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        savedInstanceState?.let {
+            it.getInt(K_PAGE)?.let { page ->
+                mViewModel.pageValue = page
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(K_PAGE, mViewModel.pageValue)
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -72,5 +90,9 @@ class LikeUserFragment @Inject constructor(
 
     companion object {
         private val mLog = LoggerFactory.getLogger(LikeUserFragment::class.java)
+        private val K_PAGE = "page"
+
+        fun create() =
+            LikeUserFragment()
     }
 }

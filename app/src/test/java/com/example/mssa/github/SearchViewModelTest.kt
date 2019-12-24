@@ -45,7 +45,7 @@ class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
 
     @Test
     fun initTest0() {
-        mockReactiveX() 
+        mockReactiveX()
 
         viewmodel.apply {
             db.dibsDao().mockReturn(dibsDao)

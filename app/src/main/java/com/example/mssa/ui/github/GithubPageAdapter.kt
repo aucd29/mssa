@@ -23,11 +23,11 @@ private val TAB_TITLES = arrayOf(
 
 class GithubPageAdapter @Inject constructor(
     private val context: Context,
-    @param:Named("githubFragmentManager") val fm: FragmentManager
+    val fm: FragmentManager // @param:Named("githubFragmentManager")
 ) : FragmentPagerAdapter(fm) {
 
-    @Inject lateinit var mSearchFragment: SearchFragment
-    @Inject lateinit var mLikeUserFragment: LikeUserFragment
+//    @Inject lateinit var mSearchFragment: dagger.Provider<SearchFragment>
+//    @Inject lateinit var mLikeUserFragment: dagger.Provider<LikeUserFragment>
 
     override fun getItem(position: Int): Fragment {
         if (mLog.isDebugEnabled) {
@@ -35,8 +35,8 @@ class GithubPageAdapter @Inject constructor(
         }
 
         return when(position) {
-            0    -> mSearchFragment
-            else -> mLikeUserFragment
+            0    -> SearchFragment.create() // mSearchFragment.get()
+            else -> LikeUserFragment.create() //mLikeUserFragment.get()
         }
     }
 
@@ -45,5 +45,8 @@ class GithubPageAdapter @Inject constructor(
 
     companion object {
         private val mLog = LoggerFactory.getLogger(GithubPageAdapter::class.java)
+
+        fun create(context: Context, manager: FragmentManager) =
+            GithubPageAdapter(context, manager)
     }
 }

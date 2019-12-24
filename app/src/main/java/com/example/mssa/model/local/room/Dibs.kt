@@ -13,7 +13,7 @@ import io.reactivex.Single
 @Dao
 interface DibsDao {
     @Query("SELECT * FROM dibs LIMIT :limit OFFSET :offset")
-    fun select(offset: Int, limit: Int = 10): Observable<List<Dibs>>
+    fun select(offset: Int, limit: Int = 10): Single<List<Dibs>>
 
     @Query("SELECT * FROM dibs")
     fun selectAll(): Single<List<Dibs>>

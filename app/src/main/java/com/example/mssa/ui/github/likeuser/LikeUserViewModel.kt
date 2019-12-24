@@ -27,8 +27,8 @@ class LikeUserViewModel @Inject constructor(
 ) : RecyclerViewModel<Dibs>(app), LifecycleEventObserver {
 
     private val mDp      = CompositeDisposable()
-    private var mPage    = 1
     private val mLimit   = 3
+    var pageValue        = 1
 
     val itemDecoration = ObservableField(OffsetDividerItemDecoration(
         app, R.drawable.shape_divider_gray,  0, 0))
@@ -36,25 +36,31 @@ class LikeUserViewModel @Inject constructor(
 
     init {
         initAdapter(R.layout.like_user_item)
-
-        init()
     }
 
     fun init() {
+        if (mLog.isInfoEnabled) {
+            mLog.info("LIKE USER $this")
+        }
+
+        if (pageValue == 0) {
+            // 알 수 없는 이유로 초기화 되는듯 ?
+            pageValue = 1
+        }
         mDp.add(db.dibsDao().count()
             .subscribeOn(Schedulers.io())
             .subscribe({
                 total.set(it)
 
-                if (mPage > total.get()) {
-                    mPage = total.get()
+                if (pageValue > it) {
+                    pageValue = it
                 }
 
                 if (mLog.isDebugEnabled) {
-                    mLog.debug("TOTAL : $it, PAGE : $mPage")
+                    mLog.debug("TOTAL : $it, PAGE : $pageValue")
                 }
 
-                load(mPage)
+                load(pageValue)
             },::errorLog))
     }
 
@@ -80,7 +86,7 @@ class LikeUserViewModel @Inject constructor(
 
     override fun command(cmd: String, data: Any) {
         when (cmd) {
-            ITN_MORE -> load(++mPage)
+            ITN_MORE -> load(++pageValue)
             else -> super.command(cmd, data)
         }
     }

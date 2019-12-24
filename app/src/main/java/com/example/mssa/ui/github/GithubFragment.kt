@@ -19,7 +19,8 @@ class GithubFragment @Inject constructor(
 ): BaseDaggerFragment<GithubFragmentBinding, GithubViewModel>() {
     override val layoutId = R.layout.github_fragment
 
-    @Inject lateinit var mAdapter: GithubPageAdapter
+//    @Inject lateinit var mAdapter: GithubPageAdapter
+//    lateinit var mAdapter: GithubPageAdapter
 
     private val mTabViewModel by activityInject<GithubTabViewModel>()
 
@@ -31,7 +32,7 @@ class GithubFragment @Inject constructor(
 
     override fun initViewBinding() = mBinding.run {
         with (githubViewPager) {
-            adapter = mAdapter
+            adapter = GithubPageAdapter.create(requireContext(), childFragmentManager)
             githubTabs.setupWithViewPager(this)
         }
     }

@@ -95,6 +95,8 @@ class SearchFragment @Inject constructor(
         private val mLog = LoggerFactory.getLogger(SearchFragment::class.java)
 
         const val STS_KEYWORD = "search-keyword"
-    }
 
+        fun create() =
+            SearchFragment()
+    }
 }
