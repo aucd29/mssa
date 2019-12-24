@@ -10,7 +10,6 @@ import javax.inject.Inject
  */
 
 class GithubViewModel @Inject constructor(
-    app: Application
 ) : ViewModel() {
     val offscreenLimit = ObservableInt(2)
 }

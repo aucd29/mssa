@@ -35,15 +35,15 @@ class ReservationTimeView @JvmOverloads constructor(
     }
 
     private val mPaint2 = Paint().apply {
-        color = context.getColor(R.color.black_two)
+        color = context.getColor(R.color.very_light_blue)
     }
 
     init {
         // 기준 시간은 9시로
         val cal = Calendar.getInstance()
         cal.set(cal.y, cal.m, cal.d, 9, 0, 0)
-        mTime9 = cal.timeInMillis
 
+        mTime9      = cal.timeInMillis
         mOffsetTime = ((mCurrentTime - mTime9) / 1_800_000).toInt()
 
         if (mLog.isDebugEnabled) {
@@ -68,12 +68,8 @@ class ReservationTimeView @JvmOverloads constructor(
                 mLog.debug("S-IDX: $sIdx, E-IDX: $eIdx")
             }
 
-            var index = sIdx.toInt()
-            while (index < eIdx) {
-                if (mLog.isDebugEnabled) {
-                    mLog.debug("DRAW IDX : $index")
-                }
-
+            var index = sIdx.toInt() + 1
+            while (index <= eIdx) {
                 mDrawingMap[index] = null
 
                 ++index
@@ -82,7 +78,7 @@ class ReservationTimeView @JvmOverloads constructor(
             ++i
         }
 
-        // 삭제해야할 부분 제거하고
+        // 삭제해야 할 부분 제거하고
         val it = mDrawingMap.iterator()
         while (it.hasNext()) {
             val tm = it.next()
@@ -91,17 +87,13 @@ class ReservationTimeView @JvmOverloads constructor(
             }
         }
 
-        if (mLog.isDebugEnabled) {
-            mLog.debug("DRAWING INDEX : ${mDrawingMap.size}")
-        }
-
         invalidate()
     }
 
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
 
-        val cellWidth = width / 19  // 9 ~ 18 시 30분간
+        val cellWidth = width / WIDTH_DIV  // 9 ~ 18 시 30분간
 
         mDrawingMap.forEach {
             val start = it.key * cellWidth
@@ -110,21 +102,25 @@ class ReservationTimeView @JvmOverloads constructor(
             canvas?.drawRect(Rect(start, 0, end, height), mPaint)
         }
 
-        //val left = mOffsetTime * cellWidth
-        //canvas?.drawRect(Rect(left, 0, width, height), mPaint)
-
-        (1..19).forEach {
-            var l =  it * cellWidth
+        val cw = width / WIDTH_DIV
+        var i = 0
+        while (i <= WIDTH_DIV) {
+            val l =  i * cw
 
             if (mLog.isDebugEnabled) {
                 mLog.debug("DRAW $l, 0, ${l + 1.dpToPx(context)}, $height")
             }
 
-            canvas?.drawRect(Rect(l, 0,  l + 1.dpToPx(context), height / 2), mPaint2)
+            val top = height / 2
+            canvas?.drawRect(Rect(l, top,  l + 1.dpToPx(context), height), mPaint2)
+
+            ++i
         }
     }
 
     companion object {
         private val mLog = LoggerFactory.getLogger(ReservationTimeView::class.java)
+
+        private const val WIDTH_DIV = 18
     }
 }

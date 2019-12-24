@@ -20,9 +20,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias=".2"
-            android:padding="@dimen/dp20"
+            app:layout_constraintBottom_toTopOf="@+id/main_custom_ui"
+            android:padding="@dimen/dp30"
+            android:textSize="@dimen/sp40"
+            android:background="?selectableItemBackgroundBorderless"
             android:onClick="@{() -> model.command(model.CMD_MOVE_GITHUB)}"
             />
 
@@ -32,11 +33,12 @@
             android:layout_height="wrap_content"
             android:text="@string/main_move_custom_ui"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_github"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias=".75"
-            android:padding="@dimen/dp20"
+            android:textSize="@dimen/sp40"
+            android:padding="@dimen/dp30"
+            android:background="?selectableItemBackgroundBorderless"
             android:onClick="@{() -> model.command(model.CMD_MOVE_MEETING_ROOM)}"
             />
 

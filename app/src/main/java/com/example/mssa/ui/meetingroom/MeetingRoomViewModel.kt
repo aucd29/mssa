@@ -2,6 +2,7 @@ package com.example.mssa.ui.meetingroom
 
 import android.app.Application
 import android.graphics.Rect
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -33,17 +34,20 @@ class MeetingRoomViewModel @Inject constructor(
     private val mDp = CompositeDisposable()
 
     val availableCount = MutableLiveData<Int>()
-    val dateString = ObservableField<String>()
+    val dateString     = ObservableField<String>()
 
     val itemDecoration = ObservableField(SpaceItemDecoration(
         Rect(0, 0, 5.dpToPx(app), 0)))
 
+    val lastMarginItemDecoration = ObservableField(SpaceItemDecoration(
+        Rect(0, 0, 0, 0), Rect(0, 0, 0, 20.dpToPx(app))))
+
     val reservationItems   = ObservableField<List<ConvertMeetingRoom>>()
     val reservationAdapter = ObservableField<RecyclerAdapter<ConvertMeetingRoom>>()
 
-    init {
-        loadJson()
-    }
+//    init {
+//        loadJson()
+//    }
 
     fun loadJson() {
         val format = app.string(R.string.meeting_room_date_format)
@@ -83,7 +87,7 @@ class MeetingRoomViewModel @Inject constructor(
 
         // test code
         val c = Calendar.getInstance()
-        c.set(c.y, c.m,  c.d, 19, 1, 0)
+        c.set(c.y, c.m,  c.d, 13, 1, 0)
 
         list.forEach {
             if (it.isAvailableRoom()) {
@@ -114,6 +118,10 @@ class MeetingRoomViewModel @Inject constructor(
             Lifecycle.Event.ON_DESTROY -> mDp.dispose()
         }
     }
+
+    @VisibleForTesting
+    fun isDisposed() =
+        mDp.isDisposed
 
     companion object {
         private val mLog = LoggerFactory.getLogger(MeetingRoomViewModel::class.java)

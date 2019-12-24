@@ -28,7 +28,7 @@ class LikeUserViewModel @Inject constructor(
 
     private val mDp      = CompositeDisposable()
     private var mPage    = 1
-    private val mLimit   = 1
+    private val mLimit   = 3
 
     val itemDecoration = ObservableField(OffsetDividerItemDecoration(
         app, R.drawable.shape_divider_gray,  0, 0))

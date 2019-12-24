@@ -1,6 +1,7 @@
 package com.example.mssa.ui.github.search
 
 import android.app.Application
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
@@ -79,7 +80,9 @@ class SearchViewModel @Inject constructor(
 
             true
         }
+    }
 
+    fun init() {
         initAdapter(R.layout.search_item)
 
         mDp.add(db.dibsDao().selectAll()
@@ -209,6 +212,14 @@ class SearchViewModel @Inject constructor(
             Lifecycle.Event.ON_DESTROY -> mDp.dispose()
         }
     }
+
+    @VisibleForTesting
+    fun isDisposed() =
+        mDp.isDisposed
+
+    @VisibleForTesting
+    fun dibsMapCount() =
+        mDibsMap.size
 
     ////////////////////////////////////////////////////////////////////////////////////
     //

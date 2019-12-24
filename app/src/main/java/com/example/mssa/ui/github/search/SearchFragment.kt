@@ -29,6 +29,7 @@ class SearchFragment @Inject constructor(
     }
 
     override fun initViewModelEvents() {
+        mViewModel.init()
         observeTabFocus(mTabViewModel.tabLive, this, R.string.main_tab_search)
     }
 

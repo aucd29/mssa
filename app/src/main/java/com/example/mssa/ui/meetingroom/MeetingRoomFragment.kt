@@ -21,6 +21,7 @@ class MeetingRoomFragment @Inject constructor(
     }
 
     override fun initViewModelEvents() {
+        mViewModel.loadJson()
     }
 
     ////////////////////////////////////////////////////////////////////////////////////

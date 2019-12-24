@@ -1,6 +1,7 @@
 package com.example.mssa
 
 import android.content.Context
+import android.util.Log
 import androidx.multidex.MultiDex
 import com.example.mssa.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -15,9 +16,7 @@ class MainApp : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        if (mLog.isInfoEnabled) {
-            mLog.info("== START ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})  ==")
-        }
+        Log.e("[BK]", "== START ${BuildConfig.APPLICATION_ID} ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})  ==")
     }
 
     override fun attachBaseContext(base: Context) {
