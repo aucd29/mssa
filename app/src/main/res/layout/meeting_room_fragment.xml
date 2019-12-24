@@ -14,6 +14,7 @@
             android:layout_height="match_parent"
             android:background="@color/very_light_blue">
 
+<!-- 날짜 영역 -->
         <View
             android:id="@+id/meeting_room_top_bg"
             android:layout_width="match_parent"
@@ -62,8 +63,7 @@
             android:src="@drawable/ic_general_settings"
             />
 
-<!-- SCROLL VIEW    -->
-
+<!-- SCROLL VIEW 시작  -->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/meeting_room_scroll"
             android:layout_width="match_parent"
@@ -79,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+<!--활성화된 미팅룸 영역 -->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/meeting_room_current_meeting_room"
                     style="@style/TextStyle"
@@ -106,7 +107,6 @@
                     tools:text="7"
                     />
 
-                <!--        데이터가 없을때 어떻게 표현해야 하나??? 내용이 없네 -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/meeting_room_current_meeting_room_recycler"
                     android:layout_width="0dp"
@@ -123,7 +123,7 @@
                     android:visibility="@{model.availableCount > 0 ? View.VISIBLE : View.GONE}"
                     />
 
-                <!--        -->
+<!--미팅룸 세부 내용 리스트 영역-->
 
                 <View
                     android:id="@+id/meeting_room_blue_rect"
@@ -207,11 +207,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="11dp"
-                    android:layout_marginStart="@dimen/dp15"
-                    android:layout_marginEnd="@dimen/dp15"
+                    android:layout_marginStart="@dimen/dp9"
+                    android:layout_marginEnd="@dimen/dp9"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:bindAdapter="@{model.reservationAdapter}"
                     app:bindItems="@{model.reservationItems}"
+                    android:overScrollMode="never"
                     tools:listitem="@layout/meeting_room_reservation_item"
                     />
 

@@ -69,92 +69,108 @@
                 android:layout_marginStart="@dimen/dp15"
                 android:layout_marginEnd="@dimen/dp15"
                 android:background="@color/very_light_pink"
+                app:bindReservationTime="@{item.reservations}"
                 />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/reservation_time_bg"
-                app:layout_constraintTop_toBottomOf="@+id/reservation_time_bg"
-                app:layout_constraintEnd_toEndOf="@+id/reservation_time_bg"
-                android:layout_marginTop="@dimen/dp8"
-                android:weightSum="10"
-                >
-
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_9"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="@+id/reservation_time_bg"
+                    app:layout_constraintTop_toBottomOf="@+id/reservation_time_bg"
+                    android:layout_marginTop="@dimen/dp8"
                     android:text="9"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_10"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_9"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_11"
                     android:text="10"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_11"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_10"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_12"
                     android:text="11"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_12"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_11"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_13"
                     android:text="12"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_13"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_12"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_14"
                     android:text="13"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_14"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_13"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_15"
                     android:text="14"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_15"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_14"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_16"
                     android:text="15"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_16"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_15"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_17"
                     android:text="16"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_17"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/reservation_time_16"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toStartOf="@+id/reservation_time_18"
                     android:text="17"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reservation_time_18"
                     style="@style/TextStyle4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    app:layout_constraintTop_toTopOf="@+id/reservation_time_9"
+                    app:layout_constraintEnd_toEndOf="@+id/reservation_time_bg"
                     android:text="18"
                     />
-
-
-            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

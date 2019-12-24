@@ -15,6 +15,6 @@ object ReservationTimeViewBindingAdapter {
     @JvmStatic
     @BindingAdapter("bindReservationTime")
     fun bindReservation(view: ReservationTimeView, reservationTime: List<ConvertReservationTime>) {
-        view.reservationTime = reservationTime
+        view.reservationTime(reservationTime)
     }
 }

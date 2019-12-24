@@ -112,8 +112,8 @@ data class ConvertMeetingRoom(
             val cal = Calendar.getInstance()
             cal.set(cal.y, cal.m, cal.d, hour, min, 0)
 
-            if (mLog.isDebugEnabled) {
-                mLog.debug("CONVERT = ${cal.timeInMillis.toDateString()}")
+            if (mLog.isTraceEnabled) {
+                mLog.trace("CONVERT = ${cal.timeInMillis.toDateString()}")
             }
 
             return cal.timeInMillis
@@ -142,16 +142,3 @@ data class AvailableMeetingRoom(
     override fun contentsSame(item: IRecyclerDiff) =
         name == (item as AvailableMeetingRoom).name
 }
-
-//
-//data class ReservationInfo(
-//    val id: Int,
-//    val name: String,
-//    val location: String
-//): IRecyclerDiff {
-//    override fun itemSame(item: IRecyclerDiff) =
-//        id == (item as ReservationInfo).id
-//
-//    override fun contentsSame(item: IRecyclerDiff) =
-//        name == (item as ReservationInfo).name
-//}
