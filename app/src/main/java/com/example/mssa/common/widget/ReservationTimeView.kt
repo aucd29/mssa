@@ -107,8 +107,8 @@ class ReservationTimeView @JvmOverloads constructor(
         while (i <= WIDTH_DIV) {
             val l =  i * cw
 
-            if (mLog.isDebugEnabled) {
-                mLog.debug("DRAW $l, 0, ${l + 1.dpToPx(context)}, $height")
+            if (mLog.isTraceEnabled) {
+                mLog.trace("DRAW $l, 0, ${l + 1.dpToPx(context)}, $height")
             }
 
             val top = height / 2
