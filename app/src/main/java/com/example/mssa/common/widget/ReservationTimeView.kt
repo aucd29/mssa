@@ -64,7 +64,9 @@ class ReservationTimeView @JvmOverloads constructor(
             .map(::progressReservationTime)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                invalidate()
+                if (it) {
+                    invalidate()
+                }
             },{
                 if (mLog.isDebugEnabled) {
                     it.printStackTrace()
