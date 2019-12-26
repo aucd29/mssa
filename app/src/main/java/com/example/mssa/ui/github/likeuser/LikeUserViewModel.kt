@@ -63,7 +63,7 @@ class LikeUserViewModel @Inject constructor(
         // FIXME [aucd29][2019-12-23]
         // FIXME android 특성 상 메모리가 날라가니
         // FIXME 리스트에 데이터를 add 하는 것보다 항상 새로 가져오는 편이 나을듯?
-        mDp.add(db.dibsDao().select(0, page * mLimit)
+        mDp.add(db.dibsDao().select(0, page * LIMIT)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -104,7 +104,8 @@ class LikeUserViewModel @Inject constructor(
 
     companion object {
         private val mLog = LoggerFactory.getLogger(LikeUserViewModel::class.java)
-        private const val mLimit = 3
+
+        private const val LIMIT = 3
 
         const val ITN_MORE = "more"
     }

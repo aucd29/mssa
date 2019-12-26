@@ -13,16 +13,14 @@
     <string name="search_score">Score : </string>
 
 <!--    like user-->
-    <string name="like_user_more">More</string>
+    <string name="like_user_more">더보기</string>
     <string name="like_user_no_data">데이터가 없습니다.</string>
 
 <!--    meeting room-->
     <string name="meeting_room_date_format">MM월dd일(E)</string>
-
     <string name="meeting_room_available_room">현재 사용 가능 회의실</string>
     <string name="meeting_room_reservation">예약가능</string>
     <string name="meeting_room_external_meeting">외부미팅</string>
     <string name="meeting_room_my_reservation">내 예약</string>
-
 
 </resources>

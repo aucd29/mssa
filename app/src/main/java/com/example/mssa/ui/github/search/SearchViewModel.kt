@@ -5,11 +5,8 @@ import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
-import brigitte.RecyclerViewModel
+import brigitte.*
 import brigitte.bindingadapter.ToLargeAlphaAnimParams
-import brigitte.isNetworkConntected
-import brigitte.toggle
-import brigitte.vibrate
 import brigitte.widget.viewpager.OffsetDividerItemDecoration
 import com.example.mssa.R
 import com.example.mssa.model.local.LocalDb
@@ -71,12 +68,17 @@ class SearchViewModel @Inject constructor(
     val itemDecoration = ObservableField(OffsetDividerItemDecoration(app,
             R.drawable.shape_divider_gray,  0, 0))
 
-    val viewIsSearching = ObservableBoolean(false)
+    val viewIsSearching   = ObservableBoolean(false)
+    val viewMoreSearching = ObservableBoolean(false)
 
+    var totalValue = 0
+    var pageValue  = 1
 
     init {
         editorAction.set {
-            searchUser(it)
+            // 검색 버튼을 선택시에는 페이지를 초기화 한다.
+            pageValue = 1
+            searchUser(pageValue, it)
 
             true
         }
@@ -96,16 +98,27 @@ class SearchViewModel @Inject constructor(
             }, ::errorLog))
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // COMMAND
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
+
     override fun command(cmd: String, data: Any) {
         when (cmd) {
-            ITN_SEARCH -> searchUser(searchKeyword.value)
+            ITN_SEARCH -> {
+                // 검색 버튼을 선택시에는 페이지를 초기화 한다.
+                pageValue = 1
+                searchUser(pageValue, searchKeyword.value)
+            }
             ITN_CLEAR  -> searchKeyword.value = ""
+            ITN_MORE   -> searchUser(pageValue + 1, searchKeyword.value)
             CMD_DIBS   -> checkDibs(data as User)
-            else -> super.command(cmd, data)
+            else       -> super.command(cmd, data)
         }
     }
 
-    private fun searchUser(keyword: String?) {
+    private fun searchUser(page: Int, keyword: String?) {
         if (mLog.isDebugEnabled) {
             mLog.debug("SEARCH KEYWORD $keyword")
         }
@@ -115,18 +128,26 @@ class SearchViewModel @Inject constructor(
             return
         }
 
-        viewIsSearching.toggle()
+        // 페이지가 1 이면 검색 버튼은 선택한것이고 아니면 more 버튼을 선택 한것이라
+        // progress 보이게하는 범위를 다르게 함
+        val viewProgress = if (page == 1) {
+            viewIsSearching
+        } else {
+            viewMoreSearching
+        }
+
+        viewProgress.toggle()
 
         if (keyword.isNullOrEmpty()) {
-            viewIsSearching.toggle()
+            viewProgress.toggle()
             toast(string(R.string.search_pls_input_search_keyword))
             return
         }
 
-        mDp.add(searchApi.users(keyword)
+        mDp.add(searchApi.users(keyword, page.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                viewIsSearching.toggle()
+                viewProgress.toggle()
 
                 if (it.incomplete_results) {
                     if (mLog.isDebugEnabled) {
@@ -137,6 +158,8 @@ class SearchViewModel @Inject constructor(
 
                     return@subscribe
                 }
+
+                totalValue = it.total_count
 
                 if (mLog.isDebugEnabled) {
                     mLog.debug("SEARCHED LIST = ${it.items.size}")
@@ -149,9 +172,19 @@ class SearchViewModel @Inject constructor(
                     }
                 }
 
-                items.set(it.items)
+                // 올바르게 데이터를 가져왔을 경우에만 페이지를 증가 시킨다.
+                ++pageValue
+
+                if (page == 1) {
+                    items.set(it.items)
+                } else {
+                    items.get()?.toMutableList()?.let { currentItems ->
+                        currentItems.addAll(it.items)
+                        items.set(currentItems)
+                    }
+                }
             }, {
-                viewIsSearching.toggle()
+                viewProgress.toggle()
 
                 errorLog(it)
             }))
@@ -233,6 +266,7 @@ class SearchViewModel @Inject constructor(
 
         const val ITN_SEARCH = "search"
         const val ITN_CLEAR  = "clear"
+        const val ITN_MORE   = "more"
 
         const val CMD_DIBS   = "dibs"
     }

@@ -68,20 +68,60 @@
             android:onClick="@{() -> model.command(model.ITN_CLEAR)}"
             />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_recycler"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_keyword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:bindAdapter="@{model.adapter}"
-            app:bindItems="@{model.items}"
-            app:bindItemDecoration="@{model.itemDecoration}"
-            tools:listitem="@layout/search_item"
-            />
+            >
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/search_scroll_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:bindAdapter="@{model.adapter}"
+                    app:bindItems="@{model.items}"
+                    app:bindItemDecoration="@{model.itemDecoration}"
+                    tools:listitem="@layout/search_item"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/search_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/search_recycler"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center"
+                    android:padding="@dimen/dp15"
+                    android:text="@string/like_user_more"
+                    android:onClick="@{() -> model.command(model.ITN_MORE)}"
+                    android:visibility="@{model.totalValue > model.items.size() ? (model.viewMoreSearching ? View.GONE : View.VISIBLE) : View.GONE}"
+                    tools:text="MORE" />
+
+                <ProgressBar
+                    android:id="@+id/search_more_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/search_recycler"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="@{model.viewMoreSearching ? View.VISIBLE : View.GONE}"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
