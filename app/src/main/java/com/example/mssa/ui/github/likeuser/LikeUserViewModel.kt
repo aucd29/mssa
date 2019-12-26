@@ -26,9 +26,8 @@ class LikeUserViewModel @Inject constructor(
     val db: LocalDb
 ) : RecyclerViewModel<Dibs>(app), LifecycleEventObserver {
 
-    private val mDp      = CompositeDisposable()
-    private val mLimit   = 3
-    var pageValue        = 1
+    private val mDp = CompositeDisposable()
+    var pageValue   = 1
 
     val itemDecoration = ObservableField(OffsetDividerItemDecoration(
         app, R.drawable.shape_divider_gray,  0, 0))
@@ -43,18 +42,10 @@ class LikeUserViewModel @Inject constructor(
             mLog.info("LIKE USER $this")
         }
 
-        if (pageValue == 0) {
-            // 알 수 없는 이유로 초기화 되는듯 ?
-            pageValue = 1
-        }
         mDp.add(db.dibsDao().count()
             .subscribeOn(Schedulers.io())
             .subscribe({
                 total.set(it)
-
-                if (pageValue > it) {
-                    pageValue = it
-                }
 
                 if (mLog.isDebugEnabled) {
                     mLog.debug("TOTAL : $it, PAGE : $pageValue")
@@ -72,7 +63,7 @@ class LikeUserViewModel @Inject constructor(
         // FIXME [aucd29][2019-12-23]
         // FIXME android 특성 상 메모리가 날라가니
         // FIXME 리스트에 데이터를 add 하는 것보다 항상 새로 가져오는 편이 나을듯?
-        mDp.add(db.dibsDao().select(0, page * mLimit)
+        mDp.add(db.dibsDao().select(0, page * LIMIT)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -86,7 +77,9 @@ class LikeUserViewModel @Inject constructor(
 
     override fun command(cmd: String, data: Any) {
         when (cmd) {
-            ITN_MORE -> load(++pageValue)
+            ITN_MORE -> {
+                load(++pageValue)
+            }
             else -> super.command(cmd, data)
         }
     }
@@ -111,6 +104,8 @@ class LikeUserViewModel @Inject constructor(
 
     companion object {
         private val mLog = LoggerFactory.getLogger(LikeUserViewModel::class.java)
+
+        private const val LIMIT = 3
 
         const val ITN_MORE = "more"
     }

@@ -1,27 +1,30 @@
 <resources>
     <string name="app_name">mssa</string>
     
-    <!-- main -->
+<!-- main -->
     <string name="main_move_github">Github</string>
     <string name="main_move_custom_ui">UI</string>
 
     <string name="main_tab_search">Search</string>
     <string name="main_tab_like_user">Like</string>
 
-<!--    search-->
+<!-- search-->
     <string name="search_pls_input_search_keyword">검색어를 입력하세요</string>
     <string name="search_score">Score : </string>
 
-<!--    like user-->
-    <string name="like_user_more">More</string>
+<!-- like user-->
+    <string name="like_user_more">더보기</string>
+    <string name="like_user_no_data">데이터가 없습니다.</string>
 
-<!--    meeting room-->
+<!-- meeting room-->
     <string name="meeting_room_date_format">MM월dd일(E)</string>
-
     <string name="meeting_room_available_room">현재 사용 가능 회의실</string>
     <string name="meeting_room_reservation">예약가능</string>
     <string name="meeting_room_external_meeting">외부미팅</string>
     <string name="meeting_room_my_reservation">내 예약</string>
+
+<!-- reservation time view-->
+    <string name="reservation_time_view_unknown_error">알 수 없는 오류가 발생하였습니다.</string>
 
 
 </resources>
