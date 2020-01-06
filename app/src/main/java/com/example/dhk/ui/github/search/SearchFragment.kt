@@ -30,6 +30,12 @@ class SearchFragment @Inject constructor(
     private val mTabViewModel by activityInject<GithubTabViewModel>()
     private val mGithubViewModel by activityInject<GithubViewModel>()
 
+    override fun bindViewModel() {
+        super.bindViewModel()
+
+        mBinding.githubModel = mGithubViewModel
+    }
+
     override fun initViewBinding() = mBinding.run {
 
     }

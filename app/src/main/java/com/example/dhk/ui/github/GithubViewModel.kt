@@ -73,18 +73,16 @@ class GithubViewModel @Inject constructor(
             return
         }
 
-        val viewProgress = viewIsSearching
+        val viewProgress = if (page == 1) {
+            viewIsSearching
+        } else {
+            null
+        }
 
-//        val viewProgress = if (page == 1) {
-//            viewIsSearching
-//        } else {
-//            viewMoreSearching
-//        }
-//
-        viewProgress.toggle()
+        viewProgress?.toggle()
 
         if (keyword.isNullOrEmpty()) {
-            viewProgress.toggle()
+            viewProgress?.toggle()
             toast(string(R.string.search_pls_input_search_keyword))
             return
         }
@@ -92,7 +90,7 @@ class GithubViewModel @Inject constructor(
         mDp.add(searchApi.users(keyword, page.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                viewProgress.toggle()
+                viewProgress?.toggle()
 
                 if (it.incomplete_results) {
                     if (mLog.isDebugEnabled) {
@@ -132,7 +130,7 @@ class GithubViewModel @Inject constructor(
 
                 ++pageValue
             }, {
-                viewProgress.toggle()
+                viewProgress?.toggle()
 
                 errorLog(it, mLog)
             }))
