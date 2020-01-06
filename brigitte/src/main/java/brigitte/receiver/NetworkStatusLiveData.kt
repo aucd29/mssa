@@ -12,7 +12,7 @@ import androidx.lifecycle.LiveData
 import brigitte.systemService
 
 /**
- * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2019-12-06 <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2019-12-06 <p/>
  *
  * https://stackoverflow.com/questions/36421930/connectivitymanager-connectivity-action-deprecated
  */

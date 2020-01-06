@@ -4,8 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="model" type="com.example.mssa.ui.github.search.SearchViewModel" />
-        <variable name="item" type="com.example.mssa.model.remote.github.User" />
+        <variable name="model" type="com.example.dhk.ui.github.search.SearchViewModel" />
+        <variable name="item" type="com.example.dhk.model.remote.github.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

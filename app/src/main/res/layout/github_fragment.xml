@@ -4,8 +4,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="model" type="com.example.mssa.ui.github.GithubViewModel" />
-        <variable name="tabModel" type="com.example.mssa.ui.github.GithubTabViewModel" />
+        <import type="android.view.View" />
+        <variable name="model" type="com.example.dhk.ui.github.GithubViewModel" />
+        <variable name="tabModel" type="com.example.dhk.ui.github.GithubTabViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,13 +16,70 @@
             android:background="@android:color/white"
             >
 
+        <EditText
+            android:id="@+id/search_keyword"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/search_search"
+            app:layout_constraintBottom_toBottomOf="@+id/search_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginLeft="@dimen/dp10"
+            android:hint="@string/search_pls_input_search_keyword"
+            android:text="@={model.searchKeyword}"
+            app:bindEditorAction="@{model.editorAction}"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/search_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_black_24dp"
+            android:background="?selectableItemBackgroundBorderless"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/search_delete"
+            android:paddingTop="@dimen/dp15"
+            android:paddingStart="@dimen/dp15"
+            android:paddingLeft="@dimen/dp15"
+            android:paddingBottom="@dimen/dp15"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:onClick="@{() -> model.command(model.ITN_SEARCH)}"
+            android:visibility="@{model.viewIsSearching ? View.INVISIBLE : View.VISIBLE}"
+            />
+
+        <ProgressBar
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@+id/search_search"
+            app:layout_constraintTop_toTopOf="@+id/search_search"
+            app:layout_constraintEnd_toEndOf="@+id/search_search"
+            app:layout_constraintBottom_toBottomOf="@+id/search_search"
+            android:visibility="@{model.viewIsSearching ? View.VISIBLE : View.GONE}"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/search_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_clear_black_24dp"
+            android:background="?selectableItemBackgroundBorderless"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/dp15"
+            android:onClick="@{() -> model.command(model.ITN_CLEAR)}"
+            />
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/github_tabs"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:tabIndicatorHeight="1dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_keyword"
             app:layout_constraintEnd_toEndOf="parent"
             app:bindTabChanged="@{tabModel.tabChangedCallback}"
             />

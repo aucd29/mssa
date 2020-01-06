@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 
 /**
- * Created by <a href="mailto:aucd29@hanwha.com">Burke Choi</a> on 2019-12-06 <p/>
+ * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2019-12-06 <p/>
  */
 
 class NetworkStatusReceiver: BroadcastReceiver() {

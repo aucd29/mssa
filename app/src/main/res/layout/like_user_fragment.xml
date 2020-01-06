@@ -8,7 +8,7 @@
 
         <variable
             name="model"
-            type="com.example.mssa.ui.github.likeuser.LikeUserViewModel" />
+            type="com.example.dhk.ui.github.likeuser.LikeUserViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion compile_sdk
     defaultConfig {
-        applicationId "com.example.mssa"
+        applicationId "com.example.dhk"
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
         versionCode 1
