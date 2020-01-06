@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import brigitte.RecyclerViewModel
+import brigitte.bindingadapter.ToLargeAlphaAnimParams
 import brigitte.widget.viewpager.OffsetDividerItemDecoration
 import com.example.dhk.R
 import com.example.dhk.model.local.LocalDb
@@ -80,6 +81,14 @@ class LikeUserViewModel @Inject constructor(
             ITN_MORE -> {
                 load(++pageValue)
             }
+            CMD_DIBS -> {
+                val dibs = data as Dibs
+                dibs.anim.set(ToLargeAlphaAnimParams(5f, endListener = {
+                    dibs.anim.set(null)
+                }, duration = 200))
+
+                super.command(cmd, data)
+            }
             else -> super.command(cmd, data)
         }
     }
@@ -108,5 +117,6 @@ class LikeUserViewModel @Inject constructor(
         private const val LIMIT = 3
 
         const val ITN_MORE = "more"
+        const val CMD_DIBS = "dibs"
     }
 }

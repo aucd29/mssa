@@ -1,8 +1,13 @@
 package com.example.dhk.model.local.room
 
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.room.*
 import brigitte.IRecyclerDiff
+import brigitte.bindingadapter.ToLargeAlphaAnimParams
+import com.example.dhk.R
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -12,10 +17,10 @@ import io.reactivex.Single
 @Dao
 interface DibsDao {
     @Query("SELECT * FROM dibs LIMIT :limit OFFSET :offset")
-    fun select(offset: Int, limit: Int = 10): Single<List<Dibs>>
+    fun select(offset: Int, limit: Int = 10): Flowable<List<Dibs>>
 
     @Query("SELECT * FROM dibs")
-    fun selectAll(): Single<List<Dibs>>
+    fun selectAll(): Flowable<List<Dibs>>
 
     @Query("SELECT COUNT(*) FROM dibs")
     fun count(): Single<Int>
@@ -37,6 +42,19 @@ data class Dibs (
     @PrimaryKey(autoGenerate = true)
     val _id: Int = 0
 ): IRecyclerDiff {
+    @Ignore
+    var dibs = ObservableInt(R.drawable.ic_star_yellow_24dp)
+    @Ignore
+    var anim = ObservableField<ToLargeAlphaAnimParams?>()
+
+    fun toggleDibs() {
+        dibs.set(if (dibs.get() == R.drawable.ic_star_border_yellow_24dp) {
+            R.drawable.ic_star_yellow_24dp
+        } else {
+            R.drawable.ic_star_border_yellow_24dp
+        })
+    }
+
     override fun itemSame(item: IRecyclerDiff) =
         _id == (item as Dibs)._id
 

@@ -34,6 +34,7 @@
             app:layout_constraintStart_toEndOf="@+id/like_user_item_avatar"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/dp10"
+            android:layout_marginLeft="@dimen/dp10"
             android:text="@{item.login}"
             android:textSize="@dimen/sp15"
             />
@@ -59,6 +60,18 @@
             android:textColor="@color/brown_grey"
             android:textSize="@dimen/sp10"
             android:text="@{item.scoreToString()}"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/like_user_item_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@{item.dibs}"
+            app:bindToLargeAlpha="@{item.anim}"
+            android:onClick="@{() -> model.command(model.CMD_DIBS, item)}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

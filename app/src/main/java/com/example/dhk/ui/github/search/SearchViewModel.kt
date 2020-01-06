@@ -59,7 +59,7 @@ class SearchViewModel @Inject constructor(
     val db: LocalDb
 ) : RecyclerViewModel<User>(app), LifecycleEventObserver {
 
-    private val mDp      = CompositeDisposable()
+    private val mDp = CompositeDisposable()
 
     val itemDecoration = ObservableField(OffsetDividerItemDecoration(app,
             R.drawable.shape_divider_gray,  0, 0))
@@ -74,7 +74,7 @@ class SearchViewModel @Inject constructor(
         mDp.add(db.dibsDao().selectAll()
             .subscribeOn(Schedulers.io())
             .subscribe({
-//                it.forEach { dibs -> mDibsMap[dibs.sid] = null }
+                it.forEach { dibs -> mDibsMap[dibs.sid] = null }
 
                 if (mLog.isDebugEnabled) {
                     mLog.debug("INIT DIBS MAP COUNT = ${it.size}")
@@ -90,89 +90,22 @@ class SearchViewModel @Inject constructor(
 
     override fun command(cmd: String, data: Any) {
         when (cmd) {
-//            ITN_SEARCH -> {
-//                // 검색 버튼을 선택시에는 페이지를 초기화 한다.
-//                pageValue = 1
-//                searchUser(pageValue, searchKeyword.value)
-//            }
-//            ITN_CLEAR  -> searchKeyword.value = ""
-//            ITN_MORE   -> searchUser(pageValue + 1, searchKeyword.value)
             CMD_DIBS   -> checkDibs(data as User)
             else       -> super.command(cmd, data)
         }
     }
 
-//    private fun searchUser(page: Int, keyword: String?) {
-//        if (mLog.isDebugEnabled) {
-//            mLog.debug("SEARCH KEYWORD $keyword")
-//        }
-//
-//        if (!app.isNetworkConntected()) {
-//            snackbar(R.string.network_invalid_connectivity)
-//            return
-//        }
-//
-//        // 페이지가 1 이면 검색 버튼은 선택한것이고 아니면 more 버튼을 선택 한것이라
-//        // progress 보이게하는 범위를 다르게 함
-//        val viewProgress = if (page == 1) {
-//            viewIsSearching
-//        } else {
-//            viewMoreSearching
-//        }
-//
-//        viewProgress.toggle()
-//
-//        if (keyword.isNullOrEmpty()) {
-//            viewProgress.toggle()
-//            toast(string(R.string.search_pls_input_search_keyword))
-//            return
-//        }
-//
-//        mDp.add(searchApi.users(keyword, page.toString())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe ({
-//                viewProgress.toggle()
-//
-//                if (it.incomplete_results) {
-//                    if (mLog.isDebugEnabled) {
-//                        mLog.debug("INCOMPLETE RESULTS ($keyword)")
-//                    }
-//
-//                    toast("INCOMPLETE")
-//
-//                    return@subscribe
-//                }
-//
-//                totalValue = it.total_count
-//
-//                if (mLog.isDebugEnabled) {
-//                    mLog.debug("SEARCHED LIST = ${it.items.size}")
-//                }
-//
-//                // 로딩 시 이미 체크되어 있는 항목 설정 하기
-//                it.items.forEach {
-//                    if (mDibsMap.containsKey(it.id)) {
-//                        it.enableDibs()
-//                    }
-//                }
-//
-//                // 올바르게 데이터를 가져왔을 경우에만 페이지를 증가 시킨다.
-//                ++pageValue
-//
-//                if (page == 1) {
-//                    items.set(it.items)
-//                } else {
-//                    items.get()?.toMutableList()?.let { currentItems ->
-//                        currentItems.addAll(it.items)
-//                        items.set(currentItems)
-//                    }
-//                }
-//            }, {
-//                viewProgress.toggle()
-//
-//                errorLog(it)
-//            }))
-//    }
+    fun performCheckDibs(id: Int) {
+        items.get()?.iterator()?.let {
+            while (it.hasNext()) {
+                val item = it.next()
+                if (item.id == id) {
+                    checkDibs(item)
+                    break
+                }
+            }
+        }
+    }
 
     private fun checkDibs(item: User) {
         if (mLog.isDebugEnabled) {

@@ -15,6 +15,7 @@ import com.example.dhk.model.remote.github.User
 import com.example.dhk.model.remote.github.Users
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import org.slf4j.LoggerFactory
 import javax.inject.Inject
 
@@ -88,6 +89,7 @@ class GithubViewModel @Inject constructor(
         }
 
         mDp.add(searchApi.users(keyword, page.toString())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
                 viewProgress?.toggle()

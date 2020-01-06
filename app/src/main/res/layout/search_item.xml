@@ -34,6 +34,7 @@
             app:layout_constraintStart_toEndOf="@+id/search_item_avatar"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/dp10"
+            android:layout_marginLeft="@dimen/dp10"
             android:text="@{item.login}"
             android:textSize="@dimen/sp15"
             />

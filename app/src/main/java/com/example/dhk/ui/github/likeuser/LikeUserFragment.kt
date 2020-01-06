@@ -9,8 +9,10 @@ import brigitte.widget.ITabFocus
 import brigitte.widget.observeTabFocus
 import com.example.dhk.R
 import com.example.dhk.databinding.LikeUserFragmentBinding
+import com.example.dhk.model.local.room.Dibs
 import com.example.dhk.ui.github.GithubTabViewModel
 import com.example.dhk.ui.github.GithubViewModel
+import com.example.dhk.ui.github.search.SearchViewModel
 import dagger.Binds
 import dagger.android.ContributesAndroidInjector
 import org.slf4j.LoggerFactory
@@ -24,12 +26,8 @@ class LikeUserFragment @Inject constructor(
 ): BaseDaggerFragment<LikeUserFragmentBinding, LikeUserViewModel>(), ITabFocus {
     override val layoutId = R.layout.like_user_fragment
 
-    init {
-        mViewModelScope = SCOPE_ACTIVITY
-    }
-
     private val mTabViewModel by activityInject<GithubTabViewModel>()
-    private val mGithubViewModel by activityInject<GithubViewModel>()
+    private val mSearchViewModel by activityInject<SearchViewModel>()
 
     override fun initViewBinding() {
     }
@@ -66,6 +64,21 @@ class LikeUserFragment @Inject constructor(
 
     ////////////////////////////////////////////////////////////////////////////////////
     //
+    // command
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    override fun onCommandEvent(cmd: String, data: Any) {
+        when (cmd) {
+            LikeUserViewModel.CMD_DIBS -> {
+                val dibs = data as Dibs
+                mSearchViewModel.performCheckDibs(dibs.sid)
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
     // ITabFocus
     //
     ////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +88,7 @@ class LikeUserFragment @Inject constructor(
             mLog.debug("FOCUS IN (LIKE USER)")
         }
 
-        mViewModel.init()
+//        mViewModel.init()
     }
 
     override fun onTabFocusOut() {
