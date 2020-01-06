@@ -28,7 +28,6 @@ class LikeUserViewModel @Inject constructor(
 ) : RecyclerViewModel<Dibs>(app), LifecycleEventObserver {
 
     private val mDp = CompositeDisposable()
-    var pageValue   = 1
 
     val itemDecoration = ObservableField(OffsetDividerItemDecoration(
         app, R.drawable.shape_divider_gray,  0, 0))
@@ -49,22 +48,19 @@ class LikeUserViewModel @Inject constructor(
                 total.set(it)
 
                 if (mLog.isDebugEnabled) {
-                    mLog.debug("TOTAL : $it, PAGE : $pageValue")
+                    mLog.debug("TOTAL : $it")
                 }
 
-                load(pageValue)
+                load()
             },::errorLog))
     }
 
-    fun load(page: Int) {
+    fun load() {
         if (mLog.isDebugEnabled) {
-            mLog.debug("LOAD LIKE USER ($page)")
+            mLog.debug("LOAD LIKE USER")
         }
 
-        // FIXME [aucd29][2019-12-23]
-        // FIXME android 특성 상 메모리가 날라가니
-        // FIXME 리스트에 데이터를 add 하는 것보다 항상 새로 가져오는 편이 나을듯?
-        mDp.add(db.dibsDao().select(0, page * LIMIT)
+        mDp.add(db.dibsDao().select() // 0, page * LIMIT
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -78,9 +74,7 @@ class LikeUserViewModel @Inject constructor(
 
     override fun command(cmd: String, data: Any) {
         when (cmd) {
-            ITN_MORE -> {
-                load(++pageValue)
-            }
+            ITN_MORE -> load()
             CMD_DIBS -> {
                 val dibs = data as Dibs
                 dibs.anim.set(ToLargeAlphaAnimParams(5f, endListener = {
@@ -113,8 +107,6 @@ class LikeUserViewModel @Inject constructor(
 
     companion object {
         private val mLog = LoggerFactory.getLogger(LikeUserViewModel::class.java)
-
-        private const val LIMIT = 3
 
         const val ITN_MORE = "more"
         const val CMD_DIBS = "dibs"

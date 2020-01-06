@@ -26,7 +26,7 @@ import javax.inject.Inject
 class GithubViewModel @Inject constructor(
     app: Application,
     val searchApi: GithubSearchService
-    ) : CommandEventViewModel(app), LifecycleEventObserver {
+) : CommandEventViewModel(app), LifecycleEventObserver {
     private val mDp    = CompositeDisposable()
 
     val offscreenLimit = ObservableInt(2)
@@ -110,25 +110,7 @@ class GithubViewModel @Inject constructor(
                     mLog.debug("SEARCHED LIST = ${it.items.size}")
                 }
 
-//                // 로딩 시 이미 체크되어 있는 항목 설정 하기
-//                it.items.forEach {
-//                    if (mDibsMap.containsKey(it.id)) {
-//                        it.enableDibs()
-//                    }
-//                }
-
-                // 올바르게 데이터를 가져왔을 경우에만 페이지를 증가 시킨다.
-
-
-//                if (page == 1) {
-                    searchList.value = it.items
-//                    items.set(it.items)
-//                } else {
-//                    items.get()?.toMutableList()?.let { currentItems ->
-//                        currentItems.addAll(it.items)
-//                        items.set(currentItems)
-//                    }
-//                }
+                searchList.value = it.items
 
                 ++pageValue
             }, {

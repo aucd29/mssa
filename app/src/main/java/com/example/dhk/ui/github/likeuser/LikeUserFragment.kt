@@ -37,31 +37,6 @@ class LikeUserFragment @Inject constructor(
         mViewModel.init()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        if (mLog.isDebugEnabled) {
-            mLog.debug("SAVE STATE PAGE : ${mViewModel.pageValue}")
-        }
-
-        outState.putInt(K_PAGE, mViewModel.pageValue)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
-        savedInstanceState?.let {
-            it.getInt(K_PAGE)?.let { page ->
-
-                if (mLog.isDebugEnabled) {
-                    mLog.debug("LOAD STATE PAGE : $page")
-                }
-
-                mViewModel.pageValue = page
-            }
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////
     //
     // command

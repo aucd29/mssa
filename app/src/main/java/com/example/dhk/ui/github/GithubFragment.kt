@@ -8,6 +8,7 @@ import brigitte.di.dagger.scope.FragmentScope
 import com.example.dhk.R
 import com.example.dhk.databinding.GithubFragmentBinding
 import com.example.dhk.ui.github.search.SearchFragment
+import com.example.dhk.ui.github.search.SearchViewModel
 import dagger.Binds
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -25,8 +26,6 @@ class GithubFragment @Inject constructor(
     init {
         mViewModelScope = SCOPE_ACTIVITY
     }
-
-//    @Inject lateinit var mAdapter: GithubPageAdapter
 
     private val mTabViewModel by activityInject<GithubTabViewModel>()
 

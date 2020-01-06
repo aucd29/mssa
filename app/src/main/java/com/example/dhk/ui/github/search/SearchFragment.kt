@@ -42,23 +42,14 @@ class SearchFragment @Inject constructor(
 
     override fun initViewModelEvents() {
         mViewModel.init()
-        observeTabFocus(mTabViewModel.tabLive, this, R.string.main_tab_api)
 
+        observeTabFocus(mTabViewModel.tabLive, this, R.string.main_tab_api)
         observe(mGithubViewModel.searchList) {
             if (mLog.isDebugEnabled) {
                 mLog.debug("SEARCHED LIST = ${it.size}")
             }
 
-            mViewModel.viewMoreSearching.set(false)
-
-            if (mGithubViewModel.pageValue == 1) {
-                mViewModel.items.set(it)
-            } else {
-                mViewModel.items.get()?.toMutableList()?.let { currentItems ->
-                    currentItems.addAll(it)
-                    mViewModel.items.set(currentItems)
-                }
-            }
+            mViewModel.setSearchedListItems(mGithubViewModel.pageValue, it)
         }
     }
     

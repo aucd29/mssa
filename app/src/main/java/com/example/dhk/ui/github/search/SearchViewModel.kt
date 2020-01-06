@@ -67,7 +67,6 @@ class SearchViewModel @Inject constructor(
     val viewMoreSearching = ObservableBoolean(false)
     val mDibsMap = hashMapOf<Int, String?>()
 
-
     fun init() {
         initAdapter(R.layout.search_item)
 
@@ -80,6 +79,26 @@ class SearchViewModel @Inject constructor(
                     mLog.debug("INIT DIBS MAP COUNT = ${it.size}")
                 }
             }, ::errorLog))
+    }
+
+    fun setSearchedListItems(page: Int, list: List<User>) {
+        viewMoreSearching.set(false)
+
+        // 로딩 시 이미 체크되어 있는 항목 설정 하기
+        list.forEach {
+            if (mDibsMap.containsKey(it.id)) {
+                it.enableDibs()
+            }
+        }
+
+        if (page == 1) {
+            items.set(list)
+        } else {
+            items.get()?.toMutableList()?.let { currentItems ->
+                currentItems.addAll(list)
+                items.set(currentItems)
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
