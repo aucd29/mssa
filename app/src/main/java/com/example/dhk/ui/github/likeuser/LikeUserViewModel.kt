@@ -1,12 +1,16 @@
 package com.example.dhk.ui.github.likeuser
 
 import android.app.Application
+import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import brigitte.ITextChanged
 import brigitte.RecyclerViewModel
 import brigitte.bindingadapter.ToLargeAlphaAnimParams
 import brigitte.widget.viewpager.OffsetDividerItemDecoration
@@ -26,13 +30,15 @@ import javax.inject.Inject
 class LikeUserViewModel @Inject constructor(
     app: Application,
     val db: LocalDb
-) : RecyclerViewModel<Dibs>(app), LifecycleEventObserver {
+) : RecyclerViewModel<Dibs>(app), LifecycleEventObserver, ITextChanged {
 
     private val mDp = CompositeDisposable()
 
     val itemDecoration = ObservableField(OffsetDividerItemDecoration(
         app, R.drawable.shape_divider_gray,  0, 0))
     var total = ObservableInt(0)
+    val searchKeyword  = MutableLiveData<String>("")
+    var tempList = listOf<Dibs>()
 
     init {
         initAdapter(R.layout.like_user_item)
@@ -69,7 +75,9 @@ class LikeUserViewModel @Inject constructor(
                     mLog.debug("LOCAL SIZE = ${it.size}")
                 }
 
+                searchKeyword.value = ""
                 items.set(it)
+                tempList = it
             }, ::errorLog))
     }
 
@@ -87,6 +95,50 @@ class LikeUserViewModel @Inject constructor(
         }
     }
 
+    fun visibleLocalSearch(str: String, item: Dibs): Int {
+        if (mLog.isDebugEnabled) {
+            mLog.debug("VISIBLE LOCAL SEARCH $str")
+        }
+
+        if (str.isEmpty()) {
+            return View.VISIBLE
+        }
+
+        return if (item.login.contains(str)) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////
+    //
+    // onTextChanged
+    //
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        if (mLog.isDebugEnabled) {
+            mLog.debug("TEXT CHANGED : $s = $count")
+        }
+
+        if (s.isEmpty()) {
+            items.set(tempList)
+
+            return
+        }
+
+        val searchedList = arrayListOf<Dibs>()
+
+        tempList.forEach {
+            if (it.login.contains(s)) {
+                searchedList.add(it)
+            }
+        }
+
+        items.set(searchedList)
+    }
+    
     ////////////////////////////////////////////////////////////////////////////////////
     //
     // LifecycleEventObserver
@@ -114,4 +166,6 @@ class LikeUserViewModel @Inject constructor(
 
         const val CMD_DIBS = "dibs"
     }
+
+
 }

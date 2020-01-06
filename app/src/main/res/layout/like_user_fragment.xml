@@ -16,13 +16,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/like_user_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@={model.searchKeyword}"
+            android:hint="@string/like_user_local_search"
+            android:onTextChanged="@{model::onTextChanged}"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/like_user_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/like_user_search"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:bindAdapter="@{model.adapter}"
             app:bindItemDecoration="@{model.itemDecoration}"

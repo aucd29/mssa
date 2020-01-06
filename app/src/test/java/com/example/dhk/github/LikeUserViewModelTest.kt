@@ -45,7 +45,6 @@ class LikeUserViewModelTest: BaseRoboViewModelTest<LikeUserViewModel>() {
         viewmodel = LikeUserViewModel(app, db)
     }
 
-
     @Test
     fun initCountTest() {
         mockReactiveX()

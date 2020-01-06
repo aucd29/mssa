@@ -4,6 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
         <variable name="model" type="com.example.dhk.ui.github.likeuser.LikeUserViewModel" />
         <variable name="item" type="com.example.dhk.model.local.room.Dibs" />
     </data>
@@ -15,6 +16,7 @@
             android:padding="@dimen/dp10"
             android:clipChildren="false"
             android:clipToPadding="false"
+            android:visibility="@{item.visible}"
         >
 
         <androidx.appcompat.widget.AppCompatImageView

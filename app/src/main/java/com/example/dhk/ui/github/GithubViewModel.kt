@@ -7,6 +7,7 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.*
 import brigitte.isNetworkConntected
+import brigitte.string
 import brigitte.toggle
 import brigitte.viewmodel.CommandEventViewModel
 import com.example.dhk.R

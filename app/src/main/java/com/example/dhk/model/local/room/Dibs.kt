@@ -1,5 +1,7 @@
 package com.example.dhk.model.local.room
 
+import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.room.*
@@ -17,7 +19,7 @@ import io.reactivex.Single
 @Dao
 interface DibsDao {
     @Query("SELECT * FROM dibs") //  LIMIT :limit OFFSET :offset
-        fun select(): Flowable<List<Dibs>>  // offset: Int, limit: Int = 10
+    fun select(): Flowable<List<Dibs>>  // offset: Int, limit: Int = 10
 
     @Query("SELECT * FROM dibs")
     fun selectAll(): Flowable<List<Dibs>>
@@ -46,6 +48,8 @@ data class Dibs (
     var dibs = ObservableInt(R.drawable.ic_star_yellow_24dp)
     @Ignore
     var anim = ObservableField<ToLargeAlphaAnimParams?>()
+    @Ignore
+    var visible = ObservableInt(View.VISIBLE)
 
     fun toggleDibs() {
         dibs.set(if (dibs.get() == R.drawable.ic_star_border_yellow_24dp) {

@@ -15,5 +15,6 @@
 <!-- like user-->
     <string name="like_user_more">더 보기</string>
     <string name="like_user_no_data">데이터가 없습니다.</string>
+    <string name="like_user_local_search">로컬 검색</string>
 
 </resources>

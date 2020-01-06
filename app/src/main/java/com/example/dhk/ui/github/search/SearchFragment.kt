@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import brigitte.BaseDaggerFragment
 import brigitte.SCOPE_ACTIVITY
 import brigitte.di.dagger.scope.FragmentScope
+import brigitte.string
 import brigitte.widget.ITabFocus
 import brigitte.widget.observeTabFocus
 import com.example.dhk.R
