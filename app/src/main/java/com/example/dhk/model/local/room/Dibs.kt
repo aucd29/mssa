@@ -17,7 +17,7 @@ import io.reactivex.Single
 @Dao
 interface DibsDao {
     @Query("SELECT * FROM dibs") //  LIMIT :limit OFFSET :offset
-    fun select(): Flowable<List<Dibs>>  // offset: Int, limit: Int = 10
+        fun select(): Flowable<List<Dibs>>  // offset: Int, limit: Int = 10
 
     @Query("SELECT * FROM dibs")
     fun selectAll(): Flowable<List<Dibs>>

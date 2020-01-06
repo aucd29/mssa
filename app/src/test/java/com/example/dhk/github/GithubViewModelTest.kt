@@ -11,68 +11,86 @@ import brigitte.shield.*
 import brigitte.string
 import com.example.dhk.R
 import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.mock
 import org.robolectric.RobolectricTestRunner
 import org.slf4j.LoggerFactory
-import com.example.dhk.model.local.LocalDb
-import com.example.dhk.model.local.room.Dibs
-import com.example.dhk.model.local.room.DibsDao
 import com.example.dhk.model.remote.GithubSearchService
-import com.example.dhk.ui.github.search.SearchViewModel
-import io.reactivex.Flowable
-import io.reactivex.Single
+import com.example.dhk.ui.github.GithubViewModel
+import org.junit.Test
+import org.mockito.Mockito.mock
 
 
 /**
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2019-12-24 <p/>
  */
 @RunWith(RobolectricTestRunner::class)
-class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
-    @Mock lateinit var db: LocalDb
-    @Mock lateinit var dibsDao: DibsDao
+class GithubViewModelTest: BaseRoboViewModelTest<GithubViewModel>() {
+    @Mock lateinit var searchApi: GithubSearchService
 
     @Before
     @Throws(Exception::class)
     fun setup() {
         initMock()
 
-        viewmodel = SearchViewModel(app, db)
+        viewmodel = GithubViewModel(app, searchApi)
     }
 
     @Test
-    fun initTest0() {
-        mockReactiveX()
-
+    fun networkDisableTest() {
+        mockNetwork()
+        mockDisableNetwork()
         viewmodel.apply {
-            db.dibsDao().mockReturn(dibsDao)
-            db.dibsDao().selectAll().mockReturn(Flowable.just(arrayListOf<Dibs>()))
+            mockObserver<Pair<String, Any>>(commandEvent).apply {
+                command(GithubViewModel.ITN_SEARCH)
 
-            init()
-            adapter.get().assertNotNull()
-            dibsMapCount().asserteq(0)
+                val msg = app.string(R.string.network_invalid_connectivity)
+                println(msg)
+
+                verifyChanged(
+                    ICommandEventAware.CMD_SNACKBAR to msg)
+            }
         }
     }
 
     @Test
-    fun initTest1() {
-        mockReactiveX()
-
+    fun networkInputSearchKeywordTest() {
+        mockNetwork()
+        mockEnableNetwork()
         viewmodel.apply {
-            db.dibsDao().mockReturn(dibsDao)
-            db.dibsDao().selectAll().mockReturn(Flowable.just(arrayListOf(
-                Dibs(1,"1","1",0.0f,"1"),
-                Dibs(2,"2","2",0.0f,"2")
-            )))
+            searchKeyword.value = ""
+            mockObserver<Pair<String, Any>>(commandEvent).apply {
+                command(GithubViewModel.ITN_SEARCH)
 
-            init()
-            adapter.get().assertNotNull()
-            dibsMapCount().asserteq(2)
+                verifyChanged(
+                    ICommandEventAware.CMD_TOAST to app.string(R.string.search_pls_input_search_keyword))
+            }
         }
     }
 
+    @Test
+    fun searchKeywordTest() {
+        viewmodel.apply {
+            searchKeyword.value = "hello world"
+
+            mockObserver<String>(searchKeyword).apply {
+                verifyChanged("hello world")
+                println("search keyword = ${searchKeyword.value}")
+            }
+        }
+    }
+
+    @Test
+    fun clearSearchKeywordTest() {
+        viewmodel.apply {
+            command(GithubViewModel.ITN_CLEAR)
+
+            mockObserver<String>(searchKeyword).apply {
+                verifyChanged("")
+                println("clear search keyword = ${searchKeyword.value}")
+            }
+        }
+    }
 
     @Test
     fun stateChangeTest() {
@@ -108,6 +126,6 @@ class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
     ////////////////////////////////////////////////////////////////////////////////////
 
     companion object {
-        private val mLog = LoggerFactory.getLogger(SearchViewModelTest::class.java)
+        private val mLog = LoggerFactory.getLogger(GithubViewModelTest::class.java)
     }
 }

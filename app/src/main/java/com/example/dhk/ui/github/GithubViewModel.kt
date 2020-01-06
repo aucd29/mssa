@@ -124,10 +124,6 @@ class GithubViewModel @Inject constructor(
     fun isDisposed() =
         mDp.isDisposed
 
-//    @VisibleForTesting
-//    fun dibsMapCount() =
-//        mDibsMap.size
-
     ////////////////////////////////////////////////////////////////////////////////////
     //
     // LifecycleEventObserver

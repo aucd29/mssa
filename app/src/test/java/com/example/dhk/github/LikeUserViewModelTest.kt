@@ -4,9 +4,11 @@ package com.example.dhk.github
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2019-12-24 <p/>
  */
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import brigitte.ICommandEventAware
+import brigitte.bindingadapter.ToLargeAlphaAnimParams
 import brigitte.shield.*
 import brigitte.string
 import com.example.dhk.R
@@ -21,6 +23,7 @@ import com.example.dhk.model.local.LocalDb
 import com.example.dhk.model.local.room.Dibs
 import com.example.dhk.model.local.room.DibsDao
 import com.example.dhk.model.remote.GithubSearchService
+import com.example.dhk.ui.github.likeuser.LikeUserViewModel
 import com.example.dhk.ui.github.search.SearchViewModel
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -30,7 +33,7 @@ import io.reactivex.Single
  * Created by <a href="mailto:aucd29@gmail.com">Burke Choi</a> on 2019-12-24 <p/>
  */
 @RunWith(RobolectricTestRunner::class)
-class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
+class LikeUserViewModelTest: BaseRoboViewModelTest<LikeUserViewModel>() {
     @Mock lateinit var db: LocalDb
     @Mock lateinit var dibsDao: DibsDao
 
@@ -39,37 +42,40 @@ class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
     fun setup() {
         initMock()
 
-        viewmodel = SearchViewModel(app, db)
+        viewmodel = LikeUserViewModel(app, db)
+    }
+
+
+    @Test
+    fun initCountTest() {
+        mockReactiveX()
+
+        db.dibsDao().mockReturn(dibsDao)
+        dibsDao.count().mockReturn(Single.just(3))
+        dibsDao.select().mockReturn(Flowable.just(arrayListOf()))
+
+        viewmodel.init()
+        viewmodel.total.get().assertEquals(3)
+        viewmodel.items.get()?.size.asserteq(0)
     }
 
     @Test
-    fun initTest0() {
+    fun checkDibsTest() {
         mockReactiveX()
 
-        viewmodel.apply {
-            db.dibsDao().mockReturn(dibsDao)
-            db.dibsDao().selectAll().mockReturn(Flowable.just(arrayListOf<Dibs>()))
+        val dibs = mock(Dibs::class.java)
+        val anim = mock(ObservableField::class.java)
 
-            init()
-            adapter.get().assertNotNull()
-            dibsMapCount().asserteq(0)
-        }
-    }
-
-    @Test
-    fun initTest1() {
-        mockReactiveX()
+        dibs.anim.mockReturn(anim)
 
         viewmodel.apply {
-            db.dibsDao().mockReturn(dibsDao)
-            db.dibsDao().selectAll().mockReturn(Flowable.just(arrayListOf(
-                Dibs(1,"1","1",0.0f,"1"),
-                Dibs(2,"2","2",0.0f,"2")
-            )))
+            mockObserver<Pair<String, Any>>(commandEvent).apply {
+                viewmodel.command(LikeUserViewModel.CMD_DIBS, dibs)
+                dibs.anim.get().assertNull()
 
-            init()
-            adapter.get().assertNotNull()
-            dibsMapCount().asserteq(2)
+                verifyChanged(
+                    LikeUserViewModel.CMD_DIBS to dibs)
+            }
         }
     }
 
@@ -108,6 +114,6 @@ class SearchViewModelTest: BaseRoboViewModelTest<SearchViewModel>() {
     ////////////////////////////////////////////////////////////////////////////////////
 
     companion object {
-        private val mLog = LoggerFactory.getLogger(SearchViewModelTest::class.java)
+        private val mLog = LoggerFactory.getLogger(LikeUserViewModelTest::class.java)
     }
 }

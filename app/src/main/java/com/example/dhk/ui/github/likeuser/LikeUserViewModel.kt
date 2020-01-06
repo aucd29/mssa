@@ -1,6 +1,7 @@
 package com.example.dhk.ui.github.likeuser
 
 import android.app.Application
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.Lifecycle
@@ -97,6 +98,10 @@ class LikeUserViewModel @Inject constructor(
             Lifecycle.Event.ON_DESTROY -> mDp.dispose()
         }
     }
+
+    @VisibleForTesting
+    fun isDisposed() =
+        mDp.isDisposed
 
     ////////////////////////////////////////////////////////////////////////////////////
     //

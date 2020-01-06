@@ -171,6 +171,14 @@ class SearchViewModel @Inject constructor(
         }
     }
 
+    @VisibleForTesting
+    fun dibsMapCount() =
+        mDibsMap.size
+
+    @VisibleForTesting
+    fun isDisposed() =
+        mDp.isDisposed
+
     ////////////////////////////////////////////////////////////////////////////////////
     //
     // LifecycleEventObserver
