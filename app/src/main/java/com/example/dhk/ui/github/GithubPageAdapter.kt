@@ -22,11 +22,8 @@ private val TAB_TITLES = arrayOf(
 
 class GithubPageAdapter @Inject constructor(
     private val context: Context,
-    val fm: FragmentManager // @param:Named("githubFragmentManager")
+    val fm: FragmentManager
 ) : FragmentPagerAdapter(fm) {
-
-//    @Inject lateinit var mSearchFragment: dagger.Provider<SearchFragment>
-//    @Inject lateinit var mLikeUserFragment: dagger.Provider<LikeUserFragment>
 
     override fun getItem(position: Int): Fragment {
         if (mLog.isDebugEnabled) {
@@ -34,8 +31,8 @@ class GithubPageAdapter @Inject constructor(
         }
 
         return when(position) {
-            0    -> SearchFragment.create() // mSearchFragment.get()
-            else -> LikeUserFragment.create() //mLikeUserFragment.get()
+            0    -> SearchFragment.create()
+            else -> LikeUserFragment.create()
         }
     }
 

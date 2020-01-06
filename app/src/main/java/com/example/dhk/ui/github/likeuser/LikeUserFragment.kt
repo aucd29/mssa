@@ -1,9 +1,7 @@
 package com.example.dhk.ui.github.likeuser
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import brigitte.BaseDaggerFragment
-import brigitte.SCOPE_ACTIVITY
 import brigitte.di.dagger.scope.FragmentScope
 import brigitte.widget.ITabFocus
 import brigitte.widget.observeTabFocus
@@ -11,7 +9,6 @@ import com.example.dhk.R
 import com.example.dhk.databinding.LikeUserFragmentBinding
 import com.example.dhk.model.local.room.Dibs
 import com.example.dhk.ui.github.GithubTabViewModel
-import com.example.dhk.ui.github.GithubViewModel
 import com.example.dhk.ui.github.search.SearchViewModel
 import dagger.Binds
 import dagger.android.ContributesAndroidInjector
@@ -60,10 +57,8 @@ class LikeUserFragment @Inject constructor(
 
     override fun onTabFocusIn() {
         if (mLog.isDebugEnabled) {
-            mLog.debug("FOCUS IN (LIKE USER)")
+            mLog.debug("FOCUS IN (LOCAL)")
         }
-
-//        mViewModel.init()
     }
 
     override fun onTabFocusOut() {
@@ -94,7 +89,6 @@ class LikeUserFragment @Inject constructor(
 
     companion object {
         private val mLog = LoggerFactory.getLogger(LikeUserFragment::class.java)
-        private val K_PAGE = "page"
 
         fun create() =
             LikeUserFragment()

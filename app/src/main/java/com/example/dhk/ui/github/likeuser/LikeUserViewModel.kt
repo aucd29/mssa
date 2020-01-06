@@ -57,7 +57,7 @@ class LikeUserViewModel @Inject constructor(
 
     fun load() {
         if (mLog.isDebugEnabled) {
-            mLog.debug("LOAD LIKE USER")
+            mLog.debug("LOAD LOCAL")
         }
 
         mDp.add(db.dibsDao().select() // 0, page * LIMIT
@@ -65,7 +65,7 @@ class LikeUserViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (mLog.isDebugEnabled) {
-                    mLog.debug("LIKE USER = ${it.size}")
+                    mLog.debug("LOCAL SIZE = ${it.size}")
                 }
 
                 items.set(it)
@@ -74,7 +74,6 @@ class LikeUserViewModel @Inject constructor(
 
     override fun command(cmd: String, data: Any) {
         when (cmd) {
-            ITN_MORE -> load()
             CMD_DIBS -> {
                 val dibs = data as Dibs
                 dibs.anim.set(ToLargeAlphaAnimParams(5f, endListener = {
@@ -108,7 +107,6 @@ class LikeUserViewModel @Inject constructor(
     companion object {
         private val mLog = LoggerFactory.getLogger(LikeUserViewModel::class.java)
 
-        const val ITN_MORE = "more"
         const val CMD_DIBS = "dibs"
     }
 }

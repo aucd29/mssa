@@ -145,7 +145,5 @@ class GithubViewModel @Inject constructor(
 
         const val ITN_SEARCH = "search"
         const val ITN_CLEAR  = "clear"
-
-        const val CMD_DIBS   = "dibs"
     }
 }

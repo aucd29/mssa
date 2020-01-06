@@ -59,7 +59,6 @@ class SearchFragment @Inject constructor(
     //
     ////////////////////////////////////////////////////////////////////////////////////
     
-
     override fun onCommandEvent(cmd: String, data: Any) {
         when (cmd) {
             SearchViewModel.CMD_MORE -> {
