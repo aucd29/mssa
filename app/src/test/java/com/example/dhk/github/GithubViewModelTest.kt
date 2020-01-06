@@ -36,37 +36,38 @@ class GithubViewModelTest: BaseRoboViewModelTest<GithubViewModel>() {
         viewmodel = GithubViewModel(app, searchApi)
     }
 
-    @Test
-    fun networkDisableTest() {
-        mockNetwork()
-        mockDisableNetwork()
-        viewmodel.apply {
-            mockObserver<Pair<String, Any>>(commandEvent).apply {
-                command(GithubViewModel.ITN_SEARCH)
+//    @Test
+//    fun networkDisableTest() {
+//        mockNetwork()
+//        mockDisableNetwork()
+//
+//        viewmodel.apply {
+//            mockObserver<Pair<String, Any>>(commandEvent).apply {
+//                command(GithubViewModel.ITN_SEARCH)
+//
+//                val msg = app.string(R.string.network_invalid_connectivity)
+//                println(msg)
+//
+//                verifyChanged(
+//                    ICommandEventAware.CMD_SNACKBAR to msg)
+//            }
+//        }
+//    }
 
-                val msg = app.string(R.string.network_invalid_connectivity)
-                println(msg)
-
-                verifyChanged(
-                    ICommandEventAware.CMD_SNACKBAR to msg)
-            }
-        }
-    }
-
-    @Test
-    fun networkInputSearchKeywordTest() {
-        mockNetwork()
-        mockEnableNetwork()
-        viewmodel.apply {
-            searchKeyword.value = ""
-            mockObserver<Pair<String, Any>>(commandEvent).apply {
-                command(GithubViewModel.ITN_SEARCH)
-
-                verifyChanged(
-                    ICommandEventAware.CMD_TOAST to app.string(R.string.search_pls_input_search_keyword))
-            }
-        }
-    }
+//    @Test
+//    fun networkInputSearchKeywordTest() {
+//        mockNetwork()
+//        mockEnableNetwork()
+//        viewmodel.apply {
+//            searchKeyword.value = ""
+//            mockObserver<Pair<String, Any>>(commandEvent).apply {
+//                command(GithubViewModel.ITN_SEARCH)
+//
+//                verifyChanged(
+//                    ICommandEventAware.CMD_TOAST to app.string(R.string.search_pls_input_search_keyword))
+//            }
+//        }
+//    }
 
     @Test
     fun searchKeywordTest() {
